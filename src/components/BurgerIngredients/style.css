@@ -1,0 +1,54 @@
+ul.scroll-box {
+  list-style: none;
+  /* border: 1px yellow dashed; */
+}
+
+.ingredients-list-full {
+  display: flex;
+  flex-direction: column;
+  overflow-y: hidden;
+}
+
+.ingredients-list {
+  display: flex;
+  flex: 1 1 50%;
+  flex-direction: column;
+  padding: 0;
+}
+
+.ingredients-list-item {
+  display: flex;
+  flex: 0 0 80px;
+  flex-direction: row;
+  align-items: center;
+  /* border: 1px yellow dashed; */
+
+  position: relative;
+  .constructor-element {
+    position: absolute;
+    left: 45px;
+  }
+}
+
+.ingredients-list-item *:first-child {
+  margin-right: 4px;
+}
+
+.ingredients-list-item:last-child {
+  padding-bottom: 0;
+}
+
+.ingridients-footer {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  align-items: center;
+
+  .summary-price {
+    display: flex;
+    svg {
+      width: 36px;
+      height: 36px;
+    }
+  }
+}

@@ -1,0 +1,41 @@
+.bordered {
+  display: flex;
+  /* border: 1px yellow solid; */
+  position: relative;
+}
+
+.constructor-list {
+  display: flex;
+  flex-wrap: wrap;
+  margin: 0;
+  padding: 0;
+}
+
+.constructor-list-item {
+  display: flex;
+  flex: 0 0 270px;
+  flex-direction: column;
+  /* background-color: grey; */
+  align-items: center;
+  position: relative;
+
+  .counter {
+    right: -4px;
+    top: -4px;
+  }
+
+  .item-price {
+    display: flex;
+  }
+}
+
+.constructor-list-item-image {
+  width: 240px;
+  height: 120px;
+  /* background-color: aqua; */
+
+  img {
+    max-width: 100%;
+    max-height: 100%;
+  }
+}
