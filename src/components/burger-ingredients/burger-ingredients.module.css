@@ -20,14 +20,16 @@ ul.scroll-box {
   display: flex;
   flex: 0 0 80px;
   flex-direction: row;
+  justify-content: end;
   align-items: center;
   /* border: 1px yellow dashed; */
 
   position: relative;
-  .constructor-element {
+
+  /* .constructor-element {
     position: absolute;
     left: 45px;
-  }
+  } */
 }
 
 .ingredients-list-item *:first-child {
@@ -43,12 +45,12 @@ ul.scroll-box {
   flex-direction: row;
   justify-content: flex-end;
   align-items: center;
+}
 
-  .summary-price {
-    display: flex;
-    svg {
-      width: 36px;
-      height: 36px;
-    }
+.summary-price {
+  display: flex;
+  svg {
+    width: 36px;
+    height: 36px;
   }
 }

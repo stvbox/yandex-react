@@ -18,15 +18,15 @@
   /* background-color: grey; */
   align-items: center;
   position: relative;
+}
 
-  .counter {
-    right: -4px;
-    top: -4px;
-  }
+.counter {
+  right: -4px;
+  top: -4px;
+}
 
-  .item-price {
-    display: flex;
-  }
+.item-price {
+  display: flex;
 }
 
 .constructor-list-item-image {
