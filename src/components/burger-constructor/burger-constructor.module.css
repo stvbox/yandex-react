@@ -3,3 +3,7 @@
   /* border: 1px yellow solid; */
   position: relative;
 }
+
+.tabs {
+  display: flex;
+}

@@ -8,12 +8,12 @@ import { menuItemsList } from "../../../utils/data.type";
 
 const BurgerConstructorCategory = ({ title, items }) => {
   return (
-    <div className="pb-2">
+    <>
       <p className="text text_type_main-medium">{title}</p>
       <ul className={`p-0 m-0 pt-3 ${style.list}`}>
         {items.map((item) => {
           return (
-            <li className={`m-3 ml-2 mb-8 ${style.item}`}>
+            <li className={`m-3 ml-2 mb-8 ${style.item}`} key={item._id}>
               <div className={style.image}>
                 <img src={item.image} alt={item.name} />
               </div>
@@ -28,7 +28,7 @@ const BurgerConstructorCategory = ({ title, items }) => {
           );
         })}
       </ul>
-    </div>
+    </>
   );
 };
 
