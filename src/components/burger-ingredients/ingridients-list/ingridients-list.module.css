@@ -1,0 +1,30 @@
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  overflow-y: hidden;
+}
+
+.list {
+  display: flex;
+  flex: 1 1 50%;
+  flex-direction: column;
+  padding: 0;
+  list-style: none;
+}
+
+.item {
+  display: flex;
+  flex: 0 0 80px;
+  flex-direction: row;
+  justify-content: end;
+  align-items: center;
+  position: relative;
+}
+
+.item *:first-child {
+  margin-right: 4px;
+}
+
+.item:last-child {
+  padding-bottom: 0;
+}

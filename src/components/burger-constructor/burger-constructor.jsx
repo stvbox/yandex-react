@@ -1,12 +1,9 @@
-import {
-  Counter,
-  Tab,
-  CurrencyIcon,
-} from "@ya.praktikum/react-developer-burger-ui-components";
 import React from "react";
-import style from "./burger-constructor.module.css";
+import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
+import BurgerConstructorCategory from "./burder-constructor-catogory/burder-constructor-catogory";
+import { menuItemsCategories } from "../../utils/data.type";
 
-let BurgerConstructor = ({ categories }) => {
+const BurgerConstructor = ({ categories }) => {
   const categoriesKeys = Object.keys(categories);
 
   return (
@@ -15,11 +12,21 @@ let BurgerConstructor = ({ categories }) => {
       <Tabs className="mt-5" />
       <div className="scroll-box mt-10">
         {categoriesKeys.map((key) => {
-          return <Category key={key} title={key} items={categories[key]} />;
+          return (
+            <BurgerConstructorCategory
+              key={key}
+              title={key}
+              items={categories[key]}
+            />
+          );
         })}
       </div>
     </section>
   );
+};
+
+BurgerConstructor.propTypes = {
+  categories: menuItemsCategories,
 };
 
 const Tabs = () => {
@@ -35,32 +42,6 @@ const Tabs = () => {
       <Tab value="three" active={current === "three"} onClick={setCurrent}>
         Начинки
       </Tab>
-    </div>
-  );
-};
-
-const Category = ({ title, items }) => {
-  return (
-    <div className="pb-2">
-      <p className="text text_type_main-medium">{title}</p>
-      <ul className={`p-0 m-0 pt-3 ${style["constructor-list"]}`}>
-        {items.map((item) => {
-          return (
-            <li className={`m-3 ml-2 mb-8 ${style["constructor-list-item"]}`}>
-              <div className={style["constructor-list-item-image"]}>
-                <img src={item.image} alt={item.name} />
-              </div>
-              <p
-                className={`text text_type_digits-default m-1 ${style["item-price"]}`}
-              >
-                {item.price} &nbsp; <CurrencyIcon type="primary" />
-              </p>
-              <p className="text text_type_main-default">{item.name}</p>
-              <Counter count={item.fat} size="default" extraClass="m-1" />
-            </li>
-          );
-        })}
-      </ul>
     </div>
   );
 };

@@ -3,7 +3,7 @@ import {
   BurgerIcon,
   ListIcon,
 } from "@ya.praktikum/react-developer-burger-ui-components";
-import style from "./header.module.css";
+import style from "./app-header.module.css";
 
 let AppHeader = () => {
   return (
