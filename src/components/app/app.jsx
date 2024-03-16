@@ -18,8 +18,6 @@ function App() {
   });
   const [ingridients, setIngridients] = useState([]);
 
-  console.log("...renderApp0");
-
   function loadIngridients() {
     if (!dataUrl) {
       return;
