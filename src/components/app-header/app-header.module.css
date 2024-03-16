@@ -1,0 +1,29 @@
+.header {
+  display: flex;
+  /* border: 1px red solid; */
+  justify-content: center;
+  align-items: center;
+  justify-content: space-between;
+  width: 1288px;
+  box-sizing: border-box;
+}
+
+.logo-block {
+  flex: 0 0 40%;
+  text-align: center;
+}
+
+.buttons-block {
+  flex: 0 0 30%;
+  display: flex;
+  white-space: nowrap;
+  box-sizing: border-box;
+}
+
+.buttons-block__left {
+  justify-content: end;
+}
+
+.button {
+  display: flex;
+}

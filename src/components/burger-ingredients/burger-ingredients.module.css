@@ -1,0 +1,14 @@
+.footer {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+.price {
+  display: flex;
+  svg {
+    width: 36px;
+    height: 36px;
+  }
+}
