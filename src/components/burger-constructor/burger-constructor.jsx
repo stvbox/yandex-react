@@ -14,7 +14,7 @@ const BurgerConstructor = ({ categories }) => {
   const categoriesKeys = Object.keys(categories);
 
   return (
-    <section className="section-wrapper pb-10">
+    <>
       <p className="text text_type_main-large mt-10">Соберите бургер</p>
       <Tabs className="mt-5" />
       <div className="scroll-box mt-10">
@@ -29,7 +29,7 @@ const BurgerConstructor = ({ categories }) => {
           );
         })}
       </div>
-    </section>
+    </>
   );
 };
 
