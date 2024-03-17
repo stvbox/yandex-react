@@ -53,7 +53,7 @@ function App() {
     loadIngridients();
   }, [dataUrl]);
 
-  const closeModalHandler = useCallback(
+  const closeErrorModalHandler = useCallback(
     (e) => {
       setError(null);
       loadIngridients();
@@ -79,7 +79,7 @@ function App() {
         </main>
       </div>
       {error && (
-        <Modal title="Ошибка получения данных" closeHandler={closeModalHandler}>
+        <Modal title="Ошибка получения данных" closeHandler={closeErrorModalHandler}>
           <p className="text text_type_main-medium m-3">{dataUrl}</p>
           <p className="text text_type_main-medium">
             {error.name}: {error.message}

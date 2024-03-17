@@ -2,6 +2,7 @@ import {
   Counter,
   CurrencyIcon,
 } from "@ya.praktikum/react-developer-burger-ui-components";
+import Modal from "../../modal/modal";
 import IngridientInfo from "../ingridient-details/ingridient-details";
 import PropTypes from "prop-types";
 import style from "./burder-constructor-catogory.module.css";
@@ -16,11 +17,8 @@ const BurgerConstructorCategory = ({ title, items }) => {
   }, []);
 
   const clickIngridientHandler = useCallback((ingridient) => {
-    //console.log(JSON.stringify(ingridient));
     setCurrentItem(ingridient);
   });
-
-  //console.log("BurgerConstructorCategory");
 
   return (
     <>
@@ -48,7 +46,12 @@ const BurgerConstructorCategory = ({ title, items }) => {
         })}
       </ul>
       {currentItem && (
-        <IngridientInfo ingridient={currentItem} closeHandler={closeHandler} />
+        <Modal title="Детали ингредиента" closeHandler={closeHandler}>
+          <IngridientInfo
+            ingridient={currentItem}
+            closeHandler={closeHandler}
+          />
+        </Modal>
       )}
     </>
   );

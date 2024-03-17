@@ -1,13 +1,16 @@
 import { useState } from "react";
 import { PropTypes } from "prop-types";
 import { menuItem } from "../../../utils/data.type";
-import Modal from "../../modal/modal";
 import style from "./ingridient-details.module.css";
 
 function IngredientDetails({ ingridient, closeHandler }) {
   return (
-    <Modal title="Детали ингредиента" closeHandler={closeHandler}>
-      <img src={ingridient.image} className={style.image} />
+    <>
+      <img
+        src={ingridient.image}
+        className={style.image}
+        alt={ingridient.name}
+      />
       <p className="text text_type_main-medium mt-4">{ingridient.name}</p>
       <div className={`${style.reciept} text_color_inactive mt-8 mb-5`}>
         <div className={style.part}>
@@ -29,7 +32,7 @@ function IngredientDetails({ ingridient, closeHandler }) {
           </p>
         </div>
       </div>
-    </Modal>
+    </>
   );
 }
 

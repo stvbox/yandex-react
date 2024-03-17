@@ -24,9 +24,17 @@ function ModalWindow({ title, children, closeHandler }) {
 }
 
 function Modal({ title, children, closeHandler }) {
-  const modalRoot = useMemo(() => {
-    return document.getElementById("modal-root");
-  });
+  useEffect(() => {
+    function closeByEscape(evt) {
+      if (evt.key === "Escape") {
+        closeHandler();
+      }
+    }
+    document.addEventListener("keydown", closeHandler);
+    return () => {
+      document.removeEventListener("keydown", closeHandler);
+    };
+  }, []);
 
   return createPortal(
     <ModalOverlay onClick={closeHandler}>
@@ -34,7 +42,7 @@ function Modal({ title, children, closeHandler }) {
         {children}
       </ModalWindow>
     </ModalOverlay>,
-    modalRoot
+    document.body
   );
 }
 

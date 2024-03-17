@@ -3,6 +3,7 @@ import {
   CurrencyIcon,
   Button,
 } from "@ya.praktikum/react-developer-burger-ui-components";
+import Modal from "../modal/modal";
 import OrderDetails from "./order-details/order-details";
 import { menuItemsCategories } from "../../utils/data.type";
 import IngredientsList from "./ingridients-list/ingridients-list";
@@ -37,7 +38,11 @@ const BurgerIngredients = ({ categories }) => {
         </Button>
       </div>
       {/* -- BurgerIngredients */}
-      {isSent && <OrderDetails closeHandler={closeHandler} />}
+      {isSent && (
+        <Modal title="" closeHandler={closeHandler}>
+          <OrderDetails closeHandler={closeHandler} />
+        </Modal>
+      )}
     </>
   );
 };
