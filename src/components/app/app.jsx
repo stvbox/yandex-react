@@ -18,17 +18,22 @@ function App() {
   });
   const [ingridients, setIngridients] = useState([]);
 
-  function loadIngridients() {
+  async function loadIngridients() {
     if (!dataUrl) {
       return;
     }
 
-    fetch(dataUrl)
-      .then((result) => {
-        return result.json();
-      })
-      .then((result) => {
-        const categories = result.data.reduce(
+    const response = await fetch(dataUrl)
+      .then(async (result) => {
+        if (!result.ok) {
+          const resultText = await result.text();
+          throw new Error(
+            `http status ${result.status} ${result.statusText} ${resultText}`
+          );
+        }
+
+        const resultJson = await result.json();
+        const categories = resultJson.data.reduce(
           (memo, item, index) => {
             memo[item.type] = [...memo[item.type], item];
             return memo;
@@ -56,7 +61,7 @@ function App() {
     [dataUrl]
   );
 
-  if (ingridients.length < 1) {
+  if (!error && ingridients && ingridients.length == 0) {
     return <img src={logo} className={style["App-logo"]} alt="logo" />;
   }
 
