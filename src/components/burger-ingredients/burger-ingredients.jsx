@@ -1,4 +1,6 @@
 import React from "react";
+import { useContext } from "react";
+import { IngredientsContext } from "../../services/ingredientsContext";
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
 import BurgerConstructorCategory from "./burger-ingredients-catogory/burger-ingredients-catogory";
 import { menuItemsCategories } from "../../utils/data.type";
@@ -10,7 +12,8 @@ const INGRIDIENTS_TYPES = {
   sauce: { title: "Соусы" },
 };
 
-const BurgerConstructor = ({ categories }) => {
+function BurgerConstructor() {
+  const { categories } = useContext(IngredientsContext);
   const categoriesKeys = Object.keys(categories);
 
   return (

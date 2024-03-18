@@ -1,4 +1,6 @@
-import { useCallback, useState, useEffect } from "react";
+import { useCallback, useState, useEffect, memo, useReducer } from "react";
+import { makeRandomBurgerSet } from "../../services/ingredientsContext";
+import { IngredientsContext, SelectedIngredientsContext } from "../../services/ingredientsContext";
 import logo from "../../logo.svg";
 import AppHeader from "../app-header/app-header";
 import BurgerConstructor from "../burger-constructor/burger-constructor";
@@ -40,7 +42,7 @@ function App() {
           },
           { bun: [], main: [], sauce: [] }
         );
-        setIngridients(result.data);
+        setIngridients(resultJson.data);
         setCategories(categories);
       })
       .catch((error) => {
@@ -61,6 +63,42 @@ function App() {
     [dataUrl]
   );
 
+  // const randomSet = ingridients && !ingridients.length ? null
+  //   : memo(makeRandomBurgerSet(categories), [categories]);
+
+  const [constructorState, constructorDispatcher] = useReducer((state, action) => {
+    if (action.type == "random") {
+      const burgerSet = makeRandomBurgerSet(categories);
+
+      const items = burgerSet.reduce((memo, ingredientId) => {
+        const ingredient = ingridients.find(_ingredient => _ingredient['_id'] == ingredientId);
+        memo.push(ingredient);
+        return memo;
+      }, []);
+
+      const cast = items.reduce((memo, item) => {
+        return memo + item.price;
+      }, 0);
+
+      return {
+        ingredients: items,
+        burgerSet: burgerSet,
+        cast,
+      }
+    }
+
+  }, {
+    ingredients: [],
+    burgerSet: [],
+    cast: 0,
+  });
+
+  useEffect(() => {
+    if (!constructorState.ingredients.length) {
+      constructorDispatcher({ type: "random" });
+    }
+  }, []);
+
   if (!error && ingridients && ingridients.length == 0) {
     return <img src={logo} className={style["App-logo"]} alt="logo" />;
   }
@@ -70,12 +108,16 @@ function App() {
       <div className="app-wrapper">
         <AppHeader />
         <main>
-          <section className="section-wrapper pb-10">
-            <BurgerIngredients categories={categories} />
-          </section>
-          <section className="section-wrapper ml-10">
-            <BurgerConstructor categories={categories} />
-          </section>
+          <IngredientsContext.Provider value={{ categories }} >
+            <section className="section-wrapper pb-10">
+              <BurgerIngredients />
+            </section>
+            <SelectedIngredientsContext.Provider value={{ constructorState, constructorDispatcher }} >
+              <section className="section-wrapper ml-10">
+                <BurgerConstructor />
+              </section>
+            </SelectedIngredientsContext.Provider>
+          </IngredientsContext.Provider>
         </main>
       </div>
       {error && (

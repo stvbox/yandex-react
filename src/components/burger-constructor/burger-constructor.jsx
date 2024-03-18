@@ -1,17 +1,19 @@
-import { useCallback, useState } from "react";
+import { useCallback, useState, useContext } from "react";
 import {
   CurrencyIcon,
   Button,
 } from "@ya.praktikum/react-developer-burger-ui-components";
+import { SelectedIngredientsContext, IngredientsContext } from "../../services/ingredientsContext";
 import Modal from "../modal/modal";
 import OrderDetails from "./order-details/order-details";
 import { menuItemsCategories } from "../../utils/data.type";
 import IngredientsList from "./ingridients-list/ingridients-list";
 import style from "./burger-constructor.module.css";
 
-const BurgerIngredients = ({ categories }) => {
+function BurgerIngredients() {
+  const { constructorState, constructorDispatcher } = useContext(SelectedIngredientsContext);
+
   const [isSent, setSent] = useState(false);
-  const items = [...categories["sauce"], ...categories["main"]];
 
   const closeHandler = useCallback((e) => {
     setSent(false);
@@ -23,7 +25,7 @@ const BurgerIngredients = ({ categories }) => {
 
   return (
     <>
-      <IngredientsList items={items} />
+      <IngredientsList items={constructorState.ingredients} />
       <div className={`${style.footer} mt-10 mb-10 pr-4`}>
         <p className={`text text_type_digits-medium ${style.price} mr-10`}>
           610 &nbsp; <CurrencyIcon type="primary" />
