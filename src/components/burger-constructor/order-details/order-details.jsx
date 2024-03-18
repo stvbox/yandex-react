@@ -1,9 +1,8 @@
 import { PropTypes } from "prop-types";
-import Modal from "../../modal/modal";
 import style from "./order-details.module.css";
 import checkout from "../../../images/checkout.png";
 
-function OrderDetails({ closeHandler }) {
+function OrderDetails() {
   return (
     <>
       <p className={`text text_type_digits-large ${style.number}`}>034536</p>

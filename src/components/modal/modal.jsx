@@ -1,4 +1,4 @@
-import { createRef, useCallback, useEffect, useMemo } from "react";
+import { useEffect, useState } from "react";
 import { CloseIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import ModalOverlay from "./modal-overlay/modal-overlay";
 import style from "./modal.module.css";
@@ -24,25 +24,30 @@ function ModalWindow({ title, children, closeHandler }) {
 }
 
 function Modal({ title, children, closeHandler }) {
+  const [modalsWrapper, setModalsWrapper] = useState(null);
+
   useEffect(() => {
-    function closeByEscape(evt) {
-      if (evt.key === "Escape") {
+    setModalsWrapper(document.getElementById("modals"));
+
+    function closeByEscape(event) {
+      if (event.key === "Escape") {
         closeHandler();
       }
     }
-    document.addEventListener("keydown", closeHandler);
+
+    document.addEventListener("keydown", closeByEscape);
     return () => {
-      document.removeEventListener("keydown", closeHandler);
+      document.removeEventListener("keydown", closeByEscape);
     };
   }, []);
 
-  return createPortal(
+  return (modalsWrapper && createPortal(
     <ModalOverlay onClick={closeHandler}>
       <ModalWindow title={title} closeHandler={closeHandler}>
         {children}
       </ModalWindow>
     </ModalOverlay>,
-    document.body
+    modalsWrapper)
   );
 }
 
