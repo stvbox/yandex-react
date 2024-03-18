@@ -10,7 +10,7 @@ import { menuItemsCategories } from "../../utils/data.type";
 import IngredientsList from "./ingridients-list/ingridients-list";
 import style from "./burger-constructor.module.css";
 
-function BurgerIngredients() {
+function BurgerConstructor() {
   const { constructorState, constructorDispatcher } = useContext(SelectedIngredientsContext);
 
   const [isSent, setSent] = useState(false);
@@ -49,8 +49,8 @@ function BurgerIngredients() {
   );
 };
 
-BurgerIngredients.propTypes = {
+BurgerConstructor.propTypes = {
   categories: menuItemsCategories,
 };
 
-export default BurgerIngredients;
+export default BurgerConstructor;

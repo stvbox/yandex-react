@@ -1,8 +1,8 @@
 import React from "react";
 import { useContext } from "react";
 import { IngredientsContext } from "../../services/ingredientsContext";
+import BurgerIngredientsCategory from "./burger-ingredients-catogory/burger-ingredients-catogory";
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
-import BurgerConstructorCategory from "./burger-ingredients-catogory/burger-ingredients-catogory";
 import { menuItemsCategories } from "../../utils/data.type";
 import style from "./burger-ingredients.module.css";
 
@@ -12,7 +12,7 @@ const INGRIDIENTS_TYPES = {
   sauce: { title: "Соусы" },
 };
 
-function BurgerConstructor() {
+function BurgerIngredients() {
   const { categories } = useContext(IngredientsContext);
   const categoriesKeys = Object.keys(categories);
 
@@ -24,7 +24,7 @@ function BurgerConstructor() {
         {categoriesKeys.map((key) => {
           return (
             <div className="pb-2" key={key}>
-              <BurgerConstructorCategory
+              <BurgerIngredientsCategory
                 title={INGRIDIENTS_TYPES[key].title}
                 items={categories[key]}
               />
@@ -36,7 +36,7 @@ function BurgerConstructor() {
   );
 };
 
-BurgerConstructor.propTypes = {
+BurgerIngredients.propTypes = {
   categories: menuItemsCategories,
 };
 
@@ -57,4 +57,4 @@ const Tabs = () => {
   );
 };
 
-export default BurgerConstructor;
+export default BurgerIngredients;

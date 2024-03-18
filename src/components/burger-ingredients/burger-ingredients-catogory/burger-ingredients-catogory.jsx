@@ -9,7 +9,7 @@ import style from "./burger-ingredients-catogory.module.css";
 import { menuItemsList } from "../../../utils/data.type";
 import { useCallback, useState } from "react";
 
-const BurgerConstructorCategory = ({ title, items }) => {
+function BurgerIngredientsCategory({ title, items }) {
   const [currentItem, setCurrentItem] = useState(null);
 
   const closeHandler = useCallback((e) => {
@@ -57,9 +57,9 @@ const BurgerConstructorCategory = ({ title, items }) => {
   );
 };
 
-BurgerConstructorCategory.propTypes = {
+BurgerIngredientsCategory.propTypes = {
   title: PropTypes.string,
   items: menuItemsList,
 };
 
-export default BurgerConstructorCategory;
+export default BurgerIngredientsCategory;
