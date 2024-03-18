@@ -1,9 +1,14 @@
-.bordered {
+.footer {
   display: flex;
-  /* border: 1px yellow solid; */
-  position: relative;
+  flex-direction: row;
+  justify-content: flex-end;
+  align-items: center;
 }
 
-.tabs {
+.price {
   display: flex;
+  svg {
+    width: 36px;
+    height: 36px;
+  }
 }

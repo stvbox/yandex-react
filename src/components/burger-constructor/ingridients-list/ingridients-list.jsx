@@ -1,5 +1,3 @@
-import { useState, useCallback } from "react";
-import IngridientInfo from "../../burger-constructor/ingridient-details/ingridient-details";
 import {
   ConstructorElement,
   DragIcon,

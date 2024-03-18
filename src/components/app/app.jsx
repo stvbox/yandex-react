@@ -71,10 +71,10 @@ function App() {
         <AppHeader />
         <main>
           <section className="section-wrapper pb-10">
-            <BurgerConstructor categories={categories} />
+            <BurgerIngredients categories={categories} />
           </section>
           <section className="section-wrapper ml-10">
-            <BurgerIngredients categories={categories} />
+            <BurgerConstructor categories={categories} />
           </section>
         </main>
       </div>

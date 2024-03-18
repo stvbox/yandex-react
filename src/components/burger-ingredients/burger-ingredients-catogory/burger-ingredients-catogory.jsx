@@ -5,7 +5,7 @@ import {
 import Modal from "../../modal/modal";
 import IngridientInfo from "../ingridient-details/ingridient-details";
 import PropTypes from "prop-types";
-import style from "./burder-constructor-catogory.module.css";
+import style from "./burger-ingredients-catogory.module.css";
 import { menuItemsList } from "../../../utils/data.type";
 import { useCallback, useState } from "react";
 

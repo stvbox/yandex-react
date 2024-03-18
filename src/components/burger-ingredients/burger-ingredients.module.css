@@ -1,14 +1,8 @@
-.footer {
+.bordered {
   display: flex;
-  flex-direction: row;
-  justify-content: flex-end;
-  align-items: center;
+  position: relative;
 }
 
-.price {
+.tabs {
   display: flex;
-  svg {
-    width: 36px;
-    height: 36px;
-  }
 }
