@@ -1,57 +1,54 @@
-import React from "react";
-import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
-import BurgerConstructorCategory from "./burder-constructor-catogory/burder-constructor-catogory";
+import { useCallback, useState } from "react";
+import {
+  CurrencyIcon,
+  Button,
+} from "@ya.praktikum/react-developer-burger-ui-components";
+import Modal from "../modal/modal";
+import OrderDetails from "./order-details/order-details";
 import { menuItemsCategories } from "../../utils/data.type";
+import IngredientsList from "./ingridients-list/ingridients-list";
 import style from "./burger-constructor.module.css";
 
-const INGRIDIENTS_TYPES = {
-  bun: { title: "Булки" },
-  main: { title: "Начинки" },
-  sauce: { title: "Соусы" },
-};
+function BurgerConstructor({ categories }) { 
+  const [isSent, setSent] = useState(false);
+  const items = [...categories["sauce"], ...categories["main"]];
 
-const BurgerConstructor = ({ categories }) => {
-  const categoriesKeys = Object.keys(categories);
+  const closeHandler = useCallback((e) => {
+    setSent(false);
+  }, []);
+
+  const checkoutOrderHandler = useCallback(() => {
+    setSent(true);
+  });
 
   return (
-    <section className="section-wrapper pb-10">
-      <p className="text text_type_main-large mt-10">Соберите бургер</p>
-      <Tabs className="mt-5" />
-      <div className="scroll-box mt-10">
-        {categoriesKeys.map((key) => {
-          return (
-            <div className="pb-2" key={key}>
-              <BurgerConstructorCategory
-                title={INGRIDIENTS_TYPES[key].title}
-                items={categories[key]}
-              />
-            </div>
-          );
-        })}
+    <>
+      <IngredientsList items={items} />
+      <div className={`${style.footer} mt-10 mb-10 pr-4`}>
+        <p className={`text text_type_digits-medium ${style.price} mr-10`}>
+          610 &nbsp; <CurrencyIcon type="primary" />
+        </p>
+        <Button
+          onClick={checkoutOrderHandler}
+          htmlType="button"
+          type="primary"
+          size="large"
+        >
+          Оформить заказ
+        </Button>
       </div>
-    </section>
+      {/* -- BurgerIngredients */}
+      {isSent && (
+        <Modal title="" closeHandler={closeHandler}>
+          <OrderDetails closeHandler={closeHandler} />
+        </Modal>
+      )}
+    </>
   );
 };
 
 BurgerConstructor.propTypes = {
   categories: menuItemsCategories,
-};
-
-const Tabs = () => {
-  const [current, setCurrent] = React.useState("one");
-  return (
-    <div className={style.tabs}>
-      <Tab value="one" active={current === "one"} onClick={setCurrent}>
-        Булки
-      </Tab>
-      <Tab value="two" active={current === "two"} onClick={setCurrent}>
-        Соусы
-      </Tab>
-      <Tab value="three" active={current === "three"} onClick={setCurrent}>
-        Начинки
-      </Tab>
-    </div>
-  );
 };
 
 export default BurgerConstructor;

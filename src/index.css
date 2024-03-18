@@ -21,7 +21,6 @@ body {
   display: flex !important;
   flex-direction: column !important;
   align-items: center !important;
-  /* border: 1px green solid; */
   max-height: 100%;
   height: 100%;
   overflow: hidden;
@@ -30,12 +29,10 @@ body {
 
 #root {
   max-height: 100%;
-  /* border: 2px purple solid; */
   box-sizing: border-box;
 }
 
 .app-wrapper {
-  /* border: 3px blue solid; */
   display: flex;
   flex-direction: column;
   max-height: 100%;
@@ -48,21 +45,17 @@ main {
   display: flex;
   justify-content: center;
   overflow: hidden;
-  /* border: 1px red solid; */
 }
 
 .section-wrapper {
   flex: 0 0 601px;
   display: flex;
   flex-direction: column;
-  /* border: 3px #323232 dashed; */
   overflow: hidden;
   box-sizing: border-box;
 }
 
 .scroll-box {
-  /* max-height: 716px; */
-  /* border: 1px rgb(152, 60, 194) solid; */
   overflow-y: scroll;
   scrollbar-width: thin;
   scrollbar-color: #8585ad #2f2f37;
@@ -70,9 +63,15 @@ main {
 
 .scroll-box::-webkit-scrollbar {
   width: 8px;
-  background-color: #2f2f37; /* or add it to the track */
+  background-color: #2f2f37;
 }
 
 .scroll-box::-webkit-scrollbar-thumb {
   background: #8585ad;
+}
+
+#modals {
+  display: contents;
+  position: absolute;
+  height: 100%;
 }

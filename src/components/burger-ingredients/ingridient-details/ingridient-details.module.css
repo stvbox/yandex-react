@@ -1,0 +1,14 @@
+.image {
+  width: 480px;
+  height: 240px;
+}
+
+.reciept {
+  display: flex;
+}
+
+.part {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+}

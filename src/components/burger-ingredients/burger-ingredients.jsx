@@ -1,32 +1,57 @@
-import {
-  CurrencyIcon,
-  Button,
-} from "@ya.praktikum/react-developer-burger-ui-components";
+import React from "react";
+import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
+import BurgerIngredientsCategory from "./burger-ingredients-catogory/burger-ingredients-catogory";
 import { menuItemsCategories } from "../../utils/data.type";
-import IngredientsList from "./ingridients-list/ingridients-list";
 import style from "./burger-ingredients.module.css";
 
-const BurgerIngredients = ({ categories }) => {
-  const items = [...categories["sauce"], ...categories["main"]];
+const INGRIDIENTS_TYPES = {
+  bun: { title: "Булки" },
+  main: { title: "Начинки" },
+  sauce: { title: "Соусы" },
+};
+
+function BurgerIngredients({ categories }) { 
+  const categoriesKeys = Object.keys(categories);
 
   return (
-    <section className="section-wrapper ml-10">
-      <IngredientsList items={items} />
-      <div className={`${style.footer} mt-10 mb-10 pr-4`}>
-        <p className={`text text_type_digits-medium ${style.price} mr-10`}>
-          610 &nbsp; <CurrencyIcon type="primary" />
-        </p>
-        <Button htmlType="button" type="primary" size="large">
-          Оформить заказ
-        </Button>
+    <>
+      <p className="text text_type_main-large mt-10">Соберите бургер</p>
+      <Tabs className="mt-5" />
+      <div className="scroll-box mt-10">
+        {categoriesKeys.map((key) => {
+          return (
+            <div className="pb-2" key={key}>
+              <BurgerIngredientsCategory
+                title={INGRIDIENTS_TYPES[key].title}
+                items={categories[key]}
+              />
+            </div>
+          );
+        })}
       </div>
-      {/* -- BurgerIngredients */}
-    </section>
+    </>
   );
 };
 
 BurgerIngredients.propTypes = {
   categories: menuItemsCategories,
+};
+
+const Tabs = () => {
+  const [current, setCurrent] = React.useState("one");
+  return (
+    <div className={style.tabs}>
+      <Tab value="one" active={current === "one"} onClick={setCurrent}>
+        Булки
+      </Tab>
+      <Tab value="two" active={current === "two"} onClick={setCurrent}>
+        Соусы
+      </Tab>
+      <Tab value="three" active={current === "three"} onClick={setCurrent}>
+        Начинки
+      </Tab>
+    </div>
+  );
 };
 
 export default BurgerIngredients;
