@@ -1,9 +1,7 @@
-import { useState } from "react";
-import { PropTypes } from "prop-types";
 import { menuItem } from "../../../utils/data.type";
 import style from "./ingridient-details.module.css";
 
-function IngredientDetails({ ingridient, closeHandler }) {
+function IngredientDetails({ ingridient }) {
   return (
     <>
       <img
@@ -38,7 +36,6 @@ function IngredientDetails({ ingridient, closeHandler }) {
 
 IngredientDetails.propTypes = {
   ingridient: menuItem.isRequired,
-  closeHandler: PropTypes.func.isRequired,
 };
 
 export default IngredientDetails;

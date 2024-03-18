@@ -1,4 +1,3 @@
-import { PropTypes } from "prop-types";
 import style from "./order-details.module.css";
 import checkout from "../../../images/checkout.png";
 
@@ -15,9 +14,5 @@ function OrderDetails() {
     </>
   );
 }
-
-OrderDetails.propTypes = {
-  closeHandler: PropTypes.func.isRequired,
-};
 
 export default OrderDetails;
