@@ -1,6 +1,7 @@
 import { useCallback, useState, useEffect, memo, useReducer } from "react";
 import { makeRandomBurgerSet } from "../../services/ingredientsContext";
 import { IngredientsContext, SelectedIngredientsContext } from "../../services/ingredientsContext";
+import { getIngredients } from "../../utils/requests";
 import logo from "../../logo.svg";
 import AppHeader from "../app-header/app-header";
 import BurgerConstructor from "../burger-constructor/burger-constructor";
@@ -11,7 +12,6 @@ import style from "./app.module.css";
 const INGRIDIENTS_URL = "https://norma.nomoreparties.space/api/ingredients";
 
 function App() {
-  const [dataUrl, setDataUrl] = useState(null);
   const [error, setError] = useState(null);
   const [categories, setCategories] = useState({
     bun: [],
@@ -21,47 +21,29 @@ function App() {
   const [ingridients, setIngridients] = useState([]);
 
   async function loadIngridients() {
-    if (!dataUrl) {
-      return;
-    }
-
-    const response = await fetch(dataUrl)
-      .then(async (result) => {
-        if (!result.ok) {
-          const resultText = await result.text();
-          throw new Error(
-            `http status ${result.status} ${result.statusText} ${resultText}`
-          );
-        }
-
-        const resultJson = await result.json();
-        const categories = resultJson.data.reduce(
-          (memo, item, index) => {
-            memo[item.type] = [...memo[item.type], item];
-            return memo;
-          },
-          { bun: [], main: [], sauce: [] }
-        );
-        setIngridients(resultJson.data);
-        setCategories(categories);
-      })
-      .catch((error) => {
-        setError(error);
-      });
+    getIngredients((responseBody) => {
+      const categories = responseBody.data.reduce(
+        (memo, item, index) => {
+          memo[item.type] = [...memo[item.type], item];
+          return memo;
+        },
+        { bun: [], main: [], sauce: [] }
+      );
+      setIngridients(responseBody.data);
+      setCategories(categories);
+    }, (error) => {
+      setError(error);
+    });
   }
 
   useEffect(() => {
-    setDataUrl(INGRIDIENTS_URL);
     loadIngridients();
-  }, [dataUrl]);
+  }, []);
 
-  const closeErrorModalHandler = useCallback(
-    (e) => {
-      setError(null);
-      loadIngridients();
-    },
-    [dataUrl]
-  );
+  const closeErrorModalHandler = useCallback((e) => {
+    setError(null);
+    loadIngridients();
+  }, []);
 
   const [constructorState, constructorDispatcher] = useReducer((state, action) => {
     if (action.type == "random") {
@@ -129,9 +111,8 @@ function App() {
       </div>
       {error && (
         <Modal title="Ошибка получения данных" closeHandler={closeErrorModalHandler}>
-          <p className="text text_type_main-medium m-3">{dataUrl}</p>
           <p className="text text_type_main-medium">
-            {error.name}: {error.message}
+            {error.toString()}
           </p>
         </Modal>
       )}

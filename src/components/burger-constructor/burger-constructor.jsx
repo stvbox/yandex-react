@@ -3,16 +3,16 @@ import {
   CurrencyIcon,
   Button,
 } from "@ya.praktikum/react-developer-burger-ui-components";
-import { SelectedIngredientsContext, IngredientsContext } from "../../services/ingredientsContext";
+import { SelectedIngredientsContext } from "../../services/ingredientsContext";
+import { checkoutOrder } from "../../utils/requests";
 import Modal from "../modal/modal";
 import OrderDetails from "./order-details/order-details";
-import { menuItemsCategories } from "../../utils/data.type";
 import IngredientsList from "./ingridients-list/ingridients-list";
 import style from "./burger-constructor.module.css";
-
-const CHECKOUT_ORDER_URL = 'https://norma.nomoreparties.space/api/orders';
+import logo from "../../logo.svg";
 
 function BurgerConstructor() {
+  const [isLoading, setLoading] = useState(false);
   const [checkoutResponse, setCheckoutResponse] = useState({ data: null, error: null });
   const { constructorState, constructorDispatcher } = useContext(SelectedIngredientsContext);
 
@@ -26,33 +26,12 @@ function BurgerConstructor() {
   }, []);
 
   const checkoutOrderHandler = useCallback(() => {
-
-    const requestBody = JSON.stringify({
-      ingredients: constructorState.burgerSet,
-    });
-
-    console.log('requestBody: ', requestBody);
-
-    fetch(CHECKOUT_ORDER_URL, {
-      method: "POST",
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      mode: "cors",
-      body: requestBody,
-    }).then(async (result) => {
-      if (!result.ok) {
-        const resultText = await result.text();
-        throw new Error(
-          `http status ${result.status} ${result.statusText} ${resultText}`
-        );
-      }
-      const resultJson = await result.json();
-      setCheckoutResponse({ error: null, data: resultJson });
-    }).catch((error) => {
+    checkoutOrder(constructorState.burgerSet, responseBody => {
+      setCheckoutResponse({ error: null, data: responseBody });
+    }, error => {
       setCheckoutResponse({ data: null, error: error.toString() });
-    });
-  });
+    }, setLoading);
+  })
 
   return (
     <>
@@ -61,17 +40,10 @@ function BurgerConstructor() {
         <p className={`text text_type_digits-medium ${style.price} mr-10`}>
           {constructorState.cast} &nbsp; <CurrencyIcon type="primary" />
         </p>
-        <Button
-          onClick={checkoutOrderHandler}
-          htmlType="button"
-          type="primary"
-          size="large"
-        >
-          Оформить заказ
-        </Button>
+        <CheckoutButton {...{ isLoading, checkoutOrderHandler }} />
       </div>
       {checkoutResponse?.data?.success && (
-        <Modal title={checkoutResponse?.data?.name} closeHandler={closeHandler}>
+        <Modal title='' closeHandler={closeHandler}>
           <OrderDetails
             orderNumber={checkoutResponse?.data?.order?.number}
             thingName={checkoutResponse?.data?.name}
@@ -88,8 +60,19 @@ function BurgerConstructor() {
   );
 };
 
-BurgerConstructor.propTypes = {
-  categories: menuItemsCategories,
-};
+function CheckoutButton({ isLoading, checkoutOrderHandler }) {
+  return (
+    <>
+      {isLoading
+        ? <img src={logo} className={style.spinner} alt="spinner" />
+        : <Button
+          onClick={checkoutOrderHandler}
+          htmlType="button"
+          type="primary"
+          size="large"
+        >Оформить заказ</Button>}
+    </>
+  );
+}
 
 export default BurgerConstructor;

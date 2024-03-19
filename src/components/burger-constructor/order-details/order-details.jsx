@@ -18,7 +18,7 @@ function OrderDetails({ orderNumber, thingName }) {
 
 OrderDetails.propTypes = {
   thingName: PropTypes.string, // title from order response
-  orderNumber: PropTypes.string.isRequired, // order number
+  orderNumber: PropTypes.number.isRequired, // order number
 };
 
 export default OrderDetails;

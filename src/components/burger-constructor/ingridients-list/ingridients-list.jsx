@@ -5,6 +5,11 @@ import {
 import { menuItemsList } from "../../../utils/data.type";
 import style from "./ingridients-list.module.css";
 
+const TopBottomWords = {
+  bottom: 'низ',
+  top: 'верх',
+};
+
 function IngredientsList({ items }) {
 
   const bunItem = items.find(_ingredient => _ingredient.type == 'bun');
@@ -43,7 +48,7 @@ function BunComponent({ type, bunItem }) {
   return (bunItem && <ConstructorElement
     type={type}
     isLocked={true}
-    text={bunItem.name}
+    text={`${bunItem.name}(${TopBottomWords[type]})`}
     price={bunItem.price}
     thumbnail={bunItem.image}
   />);
