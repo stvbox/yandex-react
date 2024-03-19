@@ -63,9 +63,6 @@ function App() {
     [dataUrl]
   );
 
-  // const randomSet = ingridients && !ingridients.length ? null
-  //   : memo(makeRandomBurgerSet(categories), [categories]);
-
   const [constructorState, constructorDispatcher] = useReducer((state, action) => {
     if (action.type == "random") {
       const burgerSet = makeRandomBurgerSet(categories);
@@ -87,6 +84,11 @@ function App() {
       }
     }
 
+    return {
+      ingredients: [],
+      burgerSet: [],
+      cast: 0,
+    };
   }, {
     ingredients: [],
     burgerSet: [],
@@ -94,10 +96,11 @@ function App() {
   });
 
   useEffect(() => {
-    if (!constructorState.ingredients.length) {
+    console.log(ingridients);
+    if (ingridients && !constructorState.ingredients.length) {
       constructorDispatcher({ type: "random" });
     }
-  }, []);
+  }, [ingridients]);
 
   if (!error && ingridients && ingridients.length == 0) {
     return <img src={logo} className={style["App-logo"]} alt="logo" />;

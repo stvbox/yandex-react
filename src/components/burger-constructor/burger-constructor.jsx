@@ -17,6 +17,7 @@ function BurgerConstructor() {
 
   const closeHandler = useCallback((e) => {
     setSent(false);
+    constructorDispatcher({ type: 'random' });
   }, []);
 
   const checkoutOrderHandler = useCallback(() => {
@@ -28,7 +29,7 @@ function BurgerConstructor() {
       <IngredientsList items={constructorState.ingredients} />
       <div className={`${style.footer} mt-10 mb-10 pr-4`}>
         <p className={`text text_type_digits-medium ${style.price} mr-10`}>
-          610 &nbsp; <CurrencyIcon type="primary" />
+          {constructorState.cast} &nbsp; <CurrencyIcon type="primary" />
         </p>
         <Button
           onClick={checkoutOrderHandler}
