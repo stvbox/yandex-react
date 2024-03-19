@@ -74,6 +74,10 @@ function App() {
       }, []);
 
       const cast = items.reduce((memo, item) => {
+        if (item.type == 'bum') {
+          // по заданию булки не идут комплектом
+          return memo + item.price * 2;
+        }
         return memo + item.price;
       }, 0);
 

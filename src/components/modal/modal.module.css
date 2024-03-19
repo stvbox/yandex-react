@@ -12,6 +12,7 @@
 
 .title {
   flex: 1 1 100%;
+  white-space: normal;
 }
 
 .header {
