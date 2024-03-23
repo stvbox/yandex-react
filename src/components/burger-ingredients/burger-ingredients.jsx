@@ -1,6 +1,8 @@
 import React from "react";
-import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
+import { useContext } from "react";
+import { IngredientsContext } from "../../services/ingredientsContext";
 import BurgerIngredientsCategory from "./burger-ingredients-catogory/burger-ingredients-catogory";
+import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
 import { menuItemsCategories } from "../../utils/data.type";
 import style from "./burger-ingredients.module.css";
 
@@ -10,7 +12,8 @@ const INGRIDIENTS_TYPES = {
   sauce: { title: "Соусы" },
 };
 
-function BurgerIngredients({ categories }) { 
+function BurgerIngredients() {
+  const { categories } = useContext(IngredientsContext);
   const categoriesKeys = Object.keys(categories);
 
   return (
