@@ -1,17 +1,13 @@
 import { useCallback, useMemo } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import {
-    CurrencyIcon,
-    Button,
-} from "@ya.praktikum/react-developer-burger-ui-components";
+import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import { Modal } from "../../modal/modal";
 import { OrderDetails } from "../order-details/order-details";
 import { sendOrder } from "../../../services/actions/order";
 import { SET_ORDER_STATE } from "../../../services/actions/order";
 import { makeRandomBurger } from "../../../services/actions/constructor";
-import PropTypes from "prop-types";
 import style from "./checkout-panel.module.css";
-import logo from "../../../logo.svg";
+import { CheckoutButton } from "./checkout-button/checkout-button";
 
 export function CheckoutPanel() {
     const dispatch = useDispatch();
@@ -37,8 +33,10 @@ export function CheckoutPanel() {
             return 0;
         }
 
-        cast += [...burgerSet, bun, bun].reduce((memo, itemId) => { // + две булки
-            const item = ingredients.find(ingredient => ingredient._id == itemId);
+        const bunItem = ingredients.find(ingredient => ingredient._id == bun);
+
+        cast += [...burgerSet, bunItem, bunItem].reduce((memo, item) => { // + две булки
+            //const item = ingredients.find(ingredient => ingredient._id == itemId);
             memo += item.price;
             return memo;
         }, 0);
@@ -79,21 +77,4 @@ export function CheckoutPanel() {
                 </Modal>
             )}
     </>);
-}
-
-function CheckoutButton({ isLoading, checkoutOrderHandler }) {
-    return (<>
-        {isLoading
-            ? <img src={logo} className={style.spinner} alt="spinner" />
-            : <Button
-                onClick={checkoutOrderHandler}
-                htmlType="button"
-                type="primary"
-                size="large"
-            >Оформить заказ</Button>}
-    </>);
-}
-
-CheckoutButton.propTypes = {
-    isLoading: PropTypes.bool,
 }

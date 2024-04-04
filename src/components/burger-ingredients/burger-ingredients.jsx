@@ -1,16 +1,14 @@
 import { createRef } from "react";
 import { BurgerIngredientsCategory } from "./burger-ingredients-catogory/burger-ingredients-catogory";
-import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
+import { Tabs } from "./tabs/tabs";
 import { useDispatch, useSelector } from "react-redux";
 import { Modal } from "../modal/modal";
 import { useCallback, useState } from "react";
 import { SET_CURRENT_INGRIDIENT } from "../../services/actions/ingridients";
 import { IngredientDetails } from "./ingridient-details/ingridient-details";
 import { useMemo } from "react";
-import PropTypes from "prop-types";
-import style from "./burger-ingredients.module.css";
 
-const INGRIDIENTS_TYPES = {
+export const INGRIDIENTS_TYPES = {
   bun: { title: "Булки" },
   main: { title: "Начинки" },
   sauce: { title: "Соусы" },
@@ -30,13 +28,6 @@ export function BurgerIngredients() {
   }));
 
   const categoriesKeys = Object.keys(categories);
-
-  // const headers = useMemo(() => {
-  //   return Object.keys(INGRIDIENTS_TYPES).reduce((memo, key) => {
-  //     memo[key] = { ...INGRIDIENTS_TYPES[key], ref: createRef() };
-  //     return memo;
-  //   }, {});
-  // }, [INGRIDIENTS_TYPES]);
 
   const headers = Object.keys(INGRIDIENTS_TYPES).reduce((memo, key) => {
     memo[key] = { ...INGRIDIENTS_TYPES[key], ref: createRef() };
@@ -93,20 +84,3 @@ export function BurgerIngredients() {
     </>
   );
 };
-
-const Tabs = ({ current, setCurrent }) => {
-  //const [current, setCurrent] = React.useState("one");
-  return (
-    <div className={style.tabs}>
-      {Object.keys(INGRIDIENTS_TYPES).map(key => {
-        return (<Tab key={key} value={key} active={current === key} onClick={setCurrent}>
-          {INGRIDIENTS_TYPES[key].title}
-        </Tab>);
-      })}
-    </div>
-  );
-};
-
-Tabs.propTypes = {
-  current: PropTypes.string,
-}

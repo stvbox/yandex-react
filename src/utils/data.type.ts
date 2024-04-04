@@ -32,6 +32,7 @@ const menuItem = PropTypes.exact({
   image_mobile: PropTypes.string,
   image_large: PropTypes.string,
   __v: PropTypes.number,
+  uniqueId: PropTypes.string, // уникальный код для списков
 });
 
 const menuItemsList = PropTypes.arrayOf(menuItem);

@@ -1,4 +1,4 @@
-
+import uuid4 from "uuid4";
 
 export const SET_CONSTRUCTOR_STATE = 'SET_CONSTRUCTOR_STATE';
 export const MOVE_CONSTRUCTOR_ITEM = 'MOVE_CONSTRUCTOR_ITEM';
@@ -42,13 +42,6 @@ const makeRandomBun = (ingridients) => {
     }
 }
 
-// const makeRandomBun = (ingredientsCategories) => {
-//     if (ingredientsCategories['bun'].length) {
-//         const bunIndex = Math.floor(Math.random() * ingredientsCategories['bun'].length);
-//         return ingredientsCategories['bun'][bunIndex]._id;
-//     }
-// }
-
 /* bun, main, sauce */
 const makeRandomBurgerSet = (ingridients) => {
     const result = [];
@@ -59,24 +52,12 @@ const makeRandomBurgerSet = (ingridients) => {
         const items = notBuns.filter(item => item.type == categoryKey);
         for (let i = 0; i < Math.floor(Math.random() * 2) + 1; i++) {
             const index = Math.floor(Math.random() * items.length);
-            result.push(items[index]._id);
+            result.push({
+                ...items[index],
+                uniqueId: uuid4(),
+            });
         }
     });
 
     return result;
 }
-
-// const makeRandomBurgerSet = (ingredientsCategories) => {
-//     const result = [];
-
-//     ['main', 'sauce'].forEach(categoryKey => {
-//         if (!ingredientsCategories['bun'].length) return;
-
-//         for (let i = 0; i < Math.floor(Math.random() * 2) + 1; i++) {
-//             const index = Math.floor(Math.random() * ingredientsCategories[categoryKey].length);
-//             result.push(ingredientsCategories[categoryKey][index]._id);
-//         }
-//     });
-
-//     return result;
-// }
