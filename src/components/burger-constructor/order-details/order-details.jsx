@@ -2,7 +2,7 @@ import PropTypes from "prop-types";
 import style from "./order-details.module.css";
 import checkout from "../../../images/checkout.png";
 
-function OrderDetails({ orderNumber, thingName }) {
+export function OrderDetails({ orderNumber, thingName }) {
   return (
     <>
       <p className={`text text_type_digits-large ${style.number}`}>{orderNumber}</p>
@@ -20,5 +20,3 @@ OrderDetails.propTypes = {
   thingName: PropTypes.string, // title from order response
   orderNumber: PropTypes.number.isRequired, // order number
 };
-
-export default OrderDetails;

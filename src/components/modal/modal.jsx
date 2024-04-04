@@ -1,9 +1,10 @@
 import { useEffect, useState } from "react";
 import { CloseIcon } from "@ya.praktikum/react-developer-burger-ui-components";
-import ModalOverlay from "./modal-overlay/modal-overlay";
-import style from "./modal.module.css";
+import { ModalOverlay } from "./modal-overlay/modal-overlay";
 import { createPortal } from "react-dom";
 import PropTypes from "prop-types";
+import style from "./modal.module.css";
+
 
 function ModalWindow({ title, children, closeHandler }) {
   const clickInterceptor = (event) => {
@@ -23,7 +24,7 @@ function ModalWindow({ title, children, closeHandler }) {
   );
 }
 
-function Modal({ title, children, closeHandler }) {
+export function Modal({ title, children, closeHandler }) {
   const [modalsWrapper, setModalsWrapper] = useState(null);
 
   useEffect(() => {
@@ -55,5 +56,3 @@ Modal.propTypes = {
   title: PropTypes.string.isRequired,
   closeHandler: PropTypes.func.isRequired,
 };
-
-export default Modal;

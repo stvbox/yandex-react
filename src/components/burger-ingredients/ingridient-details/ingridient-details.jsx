@@ -1,7 +1,7 @@
 import { menuItem } from "../../../utils/data.type";
 import style from "./ingridient-details.module.css";
 
-function IngredientDetails({ ingridient }) {
+export const IngredientDetails = ({ ingridient }) => {
   return (
     <>
       <img
@@ -38,4 +38,3 @@ IngredientDetails.propTypes = {
   ingridient: menuItem.isRequired,
 };
 
-export default IngredientDetails;

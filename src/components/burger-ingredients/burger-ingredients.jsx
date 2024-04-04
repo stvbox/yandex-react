@@ -1,9 +1,13 @@
-import React from "react";
-import { useContext } from "react";
-import { IngredientsContext } from "../../services/ingredientsContext";
-import BurgerIngredientsCategory from "./burger-ingredients-catogory/burger-ingredients-catogory";
+import { createRef } from "react";
+import { BurgerIngredientsCategory } from "./burger-ingredients-catogory/burger-ingredients-catogory";
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
-import { menuItemsCategories } from "../../utils/data.type";
+import { useDispatch, useSelector } from "react-redux";
+import { Modal } from "../modal/modal";
+import { useCallback, useState } from "react";
+import { SET_CURRENT_INGRIDIENT } from "../../services/actions/ingridients";
+import { IngredientDetails } from "./ingridient-details/ingridient-details";
+import { useMemo } from "react";
+import PropTypes from "prop-types";
 import style from "./burger-ingredients.module.css";
 
 const INGRIDIENTS_TYPES = {
@@ -12,49 +16,97 @@ const INGRIDIENTS_TYPES = {
   sauce: { title: "Соусы" },
 };
 
-function BurgerIngredients() {
-  const { categories } = useContext(IngredientsContext);
+export function BurgerIngredients() {
+  const dispatch = useDispatch();
+  const [currentCategory, setCurrentCategory] = useState('main');
+
+  const scrollRef = useMemo(() => {
+    return createRef();
+  }, []);
+
+  const { categories, currentItem } = useSelector(store => ({
+    categories: store.ingredients.categories,
+    currentItem: store.ingredients.currentItem
+  }));
+
   const categoriesKeys = Object.keys(categories);
+
+  // const headers = useMemo(() => {
+  //   return Object.keys(INGRIDIENTS_TYPES).reduce((memo, key) => {
+  //     memo[key] = { ...INGRIDIENTS_TYPES[key], ref: createRef() };
+  //     return memo;
+  //   }, {});
+  // }, [INGRIDIENTS_TYPES]);
+
+  const headers = Object.keys(INGRIDIENTS_TYPES).reduce((memo, key) => {
+    memo[key] = { ...INGRIDIENTS_TYPES[key], ref: createRef() };
+    return memo;
+  }, {});
+
+  const closeHandler = useCallback((e) => {
+    dispatch({ type: SET_CURRENT_INGRIDIENT, payload: null });
+    //setCurrentItem(null);
+  }, []);
+
+  const scrollHandler = (event) => {
+    let nearest = { lap: 99999 };
+    const scrollPosition = scrollRef.current.scrollTop + scrollRef.current.offsetTop;
+    Object.keys(headers).forEach(key => {
+      const headerOffsetTop = headers[key].ref.current.offsetTop;
+      const lap = Math.abs(headerOffsetTop - scrollPosition);
+      //console.log(key + ': ' + lap);
+      if (lap <= nearest.lap) {
+        nearest.type = key;
+        nearest.lap = lap;
+      }
+    });
+    setCurrentCategory(nearest.type);
+  };
+
+  //console.log('headers: ', headers);
 
   return (
     <>
       <p className="text text_type_main-large mt-10">Соберите бургер</p>
-      <Tabs className="mt-5" />
-      <div className="scroll-box mt-10">
+      <Tabs current={currentCategory} setCurrent={setCurrentCategory} className="mt-5" />
+      <div ref={scrollRef} className="scroll-box mt-10" onScroll={scrollHandler} >
         {categoriesKeys.map((key) => {
           return (
-            <div className="pb-2" key={key}>
+            <div ref={headers[key].ref} className="pb-2" key={key}>
               <BurgerIngredientsCategory
-                title={INGRIDIENTS_TYPES[key].title}
+                key={key + '_'}
+                title={headers[key].title}
                 items={categories[key]}
               />
             </div>
           );
         })}
       </div>
+      {currentItem && (
+        <Modal title="Детали ингредиента" closeHandler={closeHandler}>
+          <IngredientDetails
+            ingridient={currentItem}
+            closeHandler={closeHandler}
+          />
+        </Modal>
+      )}
     </>
   );
 };
 
-BurgerIngredients.propTypes = {
-  categories: menuItemsCategories,
-};
-
-const Tabs = () => {
-  const [current, setCurrent] = React.useState("one");
+const Tabs = ({ current, setCurrent }) => {
+  //const [current, setCurrent] = React.useState("one");
   return (
     <div className={style.tabs}>
-      <Tab value="one" active={current === "one"} onClick={setCurrent}>
-        Булки
-      </Tab>
-      <Tab value="two" active={current === "two"} onClick={setCurrent}>
-        Соусы
-      </Tab>
-      <Tab value="three" active={current === "three"} onClick={setCurrent}>
-        Начинки
-      </Tab>
+      {Object.keys(INGRIDIENTS_TYPES).map(key => {
+        return (<Tab key={key} value={key} active={current === key} onClick={setCurrent}>
+          {INGRIDIENTS_TYPES[key].title}
+        </Tab>);
+      })}
     </div>
   );
 };
 
-export default BurgerIngredients;
+Tabs.propTypes = {
+  current: PropTypes.string,
+}
