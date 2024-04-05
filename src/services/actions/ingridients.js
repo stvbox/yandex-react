@@ -1,5 +1,4 @@
 import { getIngredients } from "../../utils/requests";
-import { makeRandomBurger } from "./constructor";
 
 export const SET_INGRIDIENTS_ITEMS = 'SET_INGRIDIENTS_ITEMS';
 export const SET_INGRIDIENTS_CATEGORIES = 'SET_INGRIDIENTS_CATEGORIES';
@@ -15,6 +14,7 @@ export const loadIngridients = () => {
         dispatch({ type: SET_INGRIDIENTS_LOADING, isLoading: false });
 
         getIngredients((responseBody) => {
+
             const categories = responseBody.data.reduce(
                 (memo, item, index) => {
                     memo[item.type] = [...memo[item.type], item];
@@ -26,7 +26,7 @@ export const loadIngridients = () => {
             dispatch({ type: SET_INGRIDIENTS_CATEGORIES, categories });
             dispatch({ type: SET_INGRIDIENTS_LOADING, isLoading: false });
 
-            dispatch(makeRandomBurger(responseBody.data));
+            //dispatch(makeRandomBurger(responseBody.data));
 
             // setIngridients(responseBody.data);
             // setCategories(categories);

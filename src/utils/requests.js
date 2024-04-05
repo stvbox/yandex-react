@@ -27,7 +27,7 @@ export function checkoutOrder(ingredients, okHandler, failHandler, busyState) {
         mode: "cors",
         body: requestBody,
     }).then(async (response) => {
-        expectNoOk(response)
+        await expectNoOk(response);
         const responseBody = await response.json();
         okHandler(responseBody);
     }).catch((error) => {

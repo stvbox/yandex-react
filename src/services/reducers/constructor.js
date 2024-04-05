@@ -4,8 +4,8 @@ import {
     INSERT_CONSTRUCTOR_ITEM,
     SET_CONSTRUCTOR_BUN,
     REMOVE_CONSTRUCTOR_ITEM,
+    RESET_CONSTRUCTOR_STATE,
 } from "../actions/constructor";
-import uuid4 from "uuid4";
 
 
 const constructorInitialState = {
@@ -13,9 +13,13 @@ const constructorInitialState = {
     bun: null,
 };
 
-export const constructor = (state = constructorInitialState, action) => {
+export const burgerConstructor = (state = constructorInitialState, action) => {
 
     switch (action.type) {
+
+        case RESET_CONSTRUCTOR_STATE:
+            return { ...constructorInitialState };
+
         case REMOVE_CONSTRUCTOR_ITEM:
 
             //console.log(REMOVE_CONSTRUCTOR_ITEM, action);
@@ -39,7 +43,6 @@ export const constructor = (state = constructorInitialState, action) => {
         case INSERT_CONSTRUCTOR_ITEM:
             const uuidItem = {
                 ...action.item,
-                uniqueId: uuid4(), // Раз надо, значит надо но идентификатор + index думаю не хуже
             };
 
             const insBurgerSet = [...state.burgerSet];

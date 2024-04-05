@@ -16,7 +16,7 @@ export const INGRIDIENTS_TYPES = {
 
 export function BurgerIngredients() {
   const dispatch = useDispatch();
-  const [currentCategory, setCurrentCategory] = useState('main');
+  const [currentCategory, setCurrentCategory] = useState('bun');
 
   const scrollRef = useMemo(() => {
     return createRef();
@@ -54,7 +54,7 @@ export function BurgerIngredients() {
     setCurrentCategory(nearest.type);
   };
 
-  //console.log('headers: ', headers);
+  console.log('currentCategory: ', currentCategory);
 
   return (
     <>

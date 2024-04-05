@@ -37,7 +37,7 @@ export function BunComponent({ type, bunItem, insIndex }) {
         },
     });
 
-    const border = isOver ? '1px white dashed' : '';
+    const border = isOver ? '1px white dashed' : ''; // подсветка при наведении dnd
 
     return (bunItem && <div ref={drop(ref)} style={{ border }}>
         <ConstructorElement

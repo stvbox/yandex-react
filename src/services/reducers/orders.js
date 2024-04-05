@@ -18,8 +18,6 @@ export const order = (state = orderInitialState, action) => {
             };
         case SET_ORDER_STATE:
 
-            //console.log('action.payload: ' + action.payload);
-
             return {
                 ...state,
                 result: action.payload,

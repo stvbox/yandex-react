@@ -36,28 +36,21 @@ function AppWithStore() {
 
 function App() {
 
-  const { ingridients, categories, error } = useSelector(store => ({
-    ingridients: store.ingredients.items,
-    categories: store.ingredients.categories,
+  const { ingridients, error, isLoading } = useSelector(store => ({
     isLoading: store.ingredients.isLoading,
+    ingridients: store.ingredients.items,
     error: store.ingredients.error,
-    constructorState: store.constructor,
+    constructorState: store.burgerConstructor,
   }));
 
   useEffect(() => {
-    store.dispatch(loadIngridients());
+    store.dispatch(loadIngridients()); // React StrictMode renders components twice on dev server
   }, []);
 
   const closeErrorModalHandler = useCallback((e) => {
     store.dispatch({ type: SET_INGRIDIENTS_ERROR, error: null });
-    store.dispatch(loadIngridients());
+    store.dispatch(loadIngridients()); // Повсторная згрузка произойдет, если была ошибка загрузки
   }, []);
-
-  // useEffect(() => {
-  //   if (ingridients && categories) {
-  //     store.dispatch(makeRandomBurger(categories, ingridients));
-  //   }
-  // }, [categories, ingridients]);
 
   if (!error && ingridients && ingridients.length == 0) {
     return <img src={logo} className={style["App-logo"]} alt="logo" />;

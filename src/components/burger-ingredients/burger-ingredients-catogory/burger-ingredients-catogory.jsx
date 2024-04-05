@@ -8,12 +8,12 @@ import style from "./burger-ingredients-catogory.module.css";
 export function BurgerIngredientsCategory({ title, items }) {
 
   const { selectedIds } = useSelector(store => ({
-    selectedIds: store.constructor.burgerSet,
+    selectedIds: store.burgerConstructor.burgerSet,
   }));
 
   const counters = useMemo(() => {
-    return (selectedIds || []).reduce((memo, id) => {
-      memo[id] = memo[id] ? memo[id] + 1 : 1;
+    return (selectedIds || []).reduce((memo, item) => {
+      memo[item._id] = memo[item._id] ? memo[item._id] + 1 : 1;
       return memo;
     }, {});
   }, [selectedIds]);

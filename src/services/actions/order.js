@@ -3,6 +3,7 @@ import { checkoutOrder } from "../../utils/requests";
 export const SET_ORDER_WAIT = "SET_ORDER_WAIT";
 export const SET_ORDER_STATE = "SET_ORDER_STATE";
 
+
 export const sendOrder = (ingredients) => {
     return function (dispatch) {
         dispatch({ type: SET_ORDER_WAIT, payload: true });

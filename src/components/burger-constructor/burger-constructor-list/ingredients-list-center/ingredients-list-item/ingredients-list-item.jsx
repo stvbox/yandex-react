@@ -49,14 +49,14 @@ export function IngredientsListItem({ item, index }) {
         }),
     })
 
-    const border = isOver ? '1px white dashed' : '';
+    const border = isOver ? '1px white dashed' : ''; // подсветка при наведение dnd
     //const opacity = isDragging ? .3 : 1;
-    const opacity = 1;
+    //const opacity = 1;
 
     drag(drop(ref));
 
     return (
-        <li ref={ref} style={{ opacity, border }} className={`${style.item} pr-3 pb-4`}>
+        <li ref={ref} style={{ border }} className={`${style.item} pr-3 pb-4`}>
             <DragIcon type="primary" />
             <ConstructorElement
                 text={item.name}

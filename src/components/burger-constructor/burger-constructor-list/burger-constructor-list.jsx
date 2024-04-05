@@ -18,8 +18,8 @@ export function BurgerConstructorList() {
   const { constructorState, ingridients, bun } = useSelector(store => ({
     ingridients: store.ingredients.items,
     categories: store.ingredients.categories,
-    constructorState: store.constructor,
-    bun: store.constructor.bun,
+    constructorState: store.burgerConstructor,
+    bun: store.burgerConstructor.bun,
   }));
 
   console.log('constructorState.burgerSet: ', constructorState.burgerSet);
