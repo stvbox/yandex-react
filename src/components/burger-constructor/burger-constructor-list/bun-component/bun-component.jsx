@@ -52,6 +52,6 @@ export function BunComponent({ type, bunItem, insIndex }) {
 
 BunComponent.propTypes = {
     type: PropTypes.oneOf(['top', 'bottom']),
-    bunItem: menuItem,
     insIndex: PropTypes.number,
+    bunItem: menuItem,
 }

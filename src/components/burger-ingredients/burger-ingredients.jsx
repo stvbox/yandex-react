@@ -54,33 +54,31 @@ export function BurgerIngredients() {
     setCurrentCategory(nearest.type);
   };
 
-  console.log('currentCategory: ', currentCategory);
+  //console.log('currentCategory: ', currentCategory);
 
-  return (
-    <>
-      <p className="text text_type_main-large mt-10">Соберите бургер</p>
-      <Tabs current={currentCategory} setCurrent={setCurrentCategory} className="mt-5" />
-      <div ref={scrollRef} className="scroll-box mt-10" onScroll={scrollHandler} >
-        {categoriesKeys.map((key) => {
-          return (
-            <div ref={headers[key].ref} className="pb-2" key={key}>
-              <BurgerIngredientsCategory
-                key={key + '_'}
-                title={headers[key].title}
-                items={categories[key]}
-              />
-            </div>
-          );
-        })}
-      </div>
-      {currentItem && (
-        <Modal title="Детали ингредиента" closeHandler={closeHandler}>
-          <IngredientDetails
-            ingridient={currentItem}
-            closeHandler={closeHandler}
-          />
-        </Modal>
-      )}
-    </>
-  );
+  return (<>
+    <p className="text text_type_main-large mt-10">Соберите бургер</p>
+    <Tabs current={currentCategory} setCurrent={setCurrentCategory} className="mt-5" />
+    <div ref={scrollRef} className="scroll-box mt-10" onScroll={scrollHandler} >
+      {categoriesKeys.map((key) => {
+        return (
+          <div ref={headers[key].ref} className="pb-2" key={key}>
+            <BurgerIngredientsCategory
+              key={key + '_'}
+              title={headers[key].title}
+              items={categories[key]}
+            />
+          </div>
+        );
+      })}
+    </div>
+    {currentItem && (
+      <Modal title="Детали ингредиента" closeHandler={closeHandler}>
+        <IngredientDetails
+          ingridient={currentItem}
+          closeHandler={closeHandler}
+        />
+      </Modal>
+    )}
+  </>);
 };

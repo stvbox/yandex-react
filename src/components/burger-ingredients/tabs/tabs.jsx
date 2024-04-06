@@ -18,4 +18,5 @@ export const Tabs = ({ current, setCurrent }) => {
 
 Tabs.propTypes = {
     current: PropTypes.string,
+    setCurrent: PropTypes.func,
 }

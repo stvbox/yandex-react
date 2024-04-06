@@ -7,16 +7,18 @@ import style from "./burger-ingredients-catogory.module.css";
 
 export function BurgerIngredientsCategory({ title, items }) {
 
-  const { selectedIds } = useSelector(store => ({
+  const { selectedIds, bunId } = useSelector(store => ({
     selectedIds: store.burgerConstructor.burgerSet,
+    bunId: store.burgerConstructor.bun,
   }));
 
   const counters = useMemo(() => {
+    const initCounter = bunId ? { [bunId]: 2 } : {};
     return (selectedIds || []).reduce((memo, item) => {
       memo[item._id] = memo[item._id] ? memo[item._id] + 1 : 1;
       return memo;
-    }, {});
-  }, [selectedIds]);
+    }, initCounter);
+  }, [selectedIds, bunId]);
 
   return (
     <div>

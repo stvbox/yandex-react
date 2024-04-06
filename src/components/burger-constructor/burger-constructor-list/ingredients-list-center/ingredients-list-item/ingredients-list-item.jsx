@@ -69,6 +69,6 @@ export function IngredientsListItem({ item, index }) {
 }
 
 IngredientsListItem.propTypes = {
-    item: menuItem,
     index: PropTypes.number,
+    item: menuItem,
 }

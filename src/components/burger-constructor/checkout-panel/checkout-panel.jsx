@@ -53,7 +53,7 @@ export function CheckoutPanel() {
         dispatch({ type: SET_ORDER_STATE, payload: { data: null, error: null } });
     }, []);
 
-    console.log('checkoutResponse: ', checkoutResponse);
+    //console.log('checkoutResponse: ', checkoutResponse);
 
     return (<>
         <div className={`${style.footer} mt-10 mb-10 pr-4`}>

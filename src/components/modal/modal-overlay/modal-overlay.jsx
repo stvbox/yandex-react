@@ -11,4 +11,5 @@ export function ModalOverlay({ children, onClick }) {
 
 ModalOverlay.propTypes = {
   onClick: PropTypes.func.isRequired,
+  //children: PropTypes.object,
 };

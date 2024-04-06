@@ -19,4 +19,5 @@ export function CheckoutButton({ isLoading, checkoutOrderHandler }) {
 
 CheckoutButton.propTypes = {
     isLoading: PropTypes.bool,
+    checkoutOrderHandler: PropTypes.func,
 }

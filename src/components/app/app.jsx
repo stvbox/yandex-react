@@ -37,10 +37,10 @@ function AppWithStore() {
 function App() {
 
   const { ingridients, error, isLoading } = useSelector(store => ({
-    isLoading: store.ingredients.isLoading,
+    //isLoading: store.ingredients.isLoading,
     ingridients: store.ingredients.items,
     error: store.ingredients.error,
-    constructorState: store.burgerConstructor,
+    //constructorState: store.burgerConstructor,
   }));
 
   useEffect(() => {

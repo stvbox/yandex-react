@@ -1,9 +1,6 @@
 import { useMemo } from "react";
 import { useSelector } from "react-redux";
-import PropTypes from "prop-types";
-import { menuItem } from "../../../utils/data.type";
 import { IngredientsListCenter } from "./ingredients-list-center/ingredients-list-center";
-import { IngredientsListItem } from "./ingredients-list-center/ingredients-list-item/ingredients-list-item";
 import { BunComponent } from "./bun-component/bun-component";
 import style from "./burger-constructor-list.module.css";
 
@@ -21,17 +18,6 @@ export function BurgerConstructorList() {
     constructorState: store.burgerConstructor,
     bun: store.burgerConstructor.bun,
   }));
-
-  console.log('constructorState.burgerSet: ', constructorState.burgerSet);
-
-  // const items = useMemo(() => {
-  //   if (constructorState.burgerSet) {
-  //     return constructorState.burgerSet.map(itemId => {
-  //       return ingridients.find(ingridient => ingridient._id == itemId);
-  //     });
-  //   }
-  //   return [];
-  // }, [constructorState.burgerSet]);
 
   const bunItem = useMemo(() => {
     return ingridients.find(_ingredient => _ingredient._id == bun);

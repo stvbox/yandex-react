@@ -1,5 +1,6 @@
 import { CloseIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import style from "./modal-window.module.css";
+import PropTypes from "prop-types";
 
 export function ModalWindow({ title, children, closeHandler }) {
     const clickInterceptor = (event) => {
@@ -18,3 +19,9 @@ export function ModalWindow({ title, children, closeHandler }) {
         </div>
     );
 }
+
+ModalWindow.propTypes = {
+    title: PropTypes.string,
+    //children: PropTypes.object,
+    closeHandler: PropTypes.func.isRequired,
+};
