@@ -1,78 +1,78 @@
-import { useCallback, useState, useContext } from "react";
+import { BurgerConstructorList } from "./burger-constructor-list/burger-constructor-list";
+import { CheckoutPanel } from "./checkout-panel/checkout-panel";
+import { useDrop } from "react-dnd";
+import { useDispatch } from "react-redux";
+import uuid4 from "uuid4";
 import {
-  CurrencyIcon,
-  Button,
-} from "@ya.praktikum/react-developer-burger-ui-components";
-import { SelectedIngredientsContext } from "../../services/ingredientsContext";
-import { checkoutOrder } from "../../utils/requests";
-import Modal from "../modal/modal";
-import OrderDetails from "./order-details/order-details";
-import IngredientsList from "./ingridients-list/ingridients-list";
-import style from "./burger-constructor.module.css";
-import logo from "../../logo.svg";
+  MOVE_CONSTRUCTOR_ITEM,
+  INSERT_CONSTRUCTOR_ITEM,
+  SET_CONSTRUCTOR_BUN,
+  REMOVE_CONSTRUCTOR_ITEM,
+} from "../../services/actions/constructor";
+import { useSelector } from "react-redux";
+import style from './burger-constructor.module.css';
 
-function BurgerConstructor() {
-  const [isLoading, setLoading] = useState(false);
-  const [checkoutResponse, setCheckoutResponse] = useState({ data: null, error: null });
-  const { constructorState, constructorDispatcher } = useContext(SelectedIngredientsContext);
+export function BurgerConstructor() {
+  const dispatch = useDispatch();
+  //const ref = useRef(null);
 
-  const closeHandler = useCallback((e) => {
-    setCheckoutResponse({ data: null, error: null });
-    constructorDispatcher({ type: 'random' });
-  }, []);
+  const { bun, burgerSet } = useSelector(store => ({
+    bun: store.burgerConstructor.bun,
+    burgerSet: store.burgerConstructor.burgerSet,
+  }));
 
-  const closeErrorHandler = useCallback((e) => {
-    setCheckoutResponse({ data: null, error: null });
-  }, []);
+  const [{ isOver }, drop] = useDrop({
+    accept: 'toBurgerSet',
+    collect(monitor) {
+      return {
+        isOver: monitor.isOver(),
+      }
+    },
+    drop(item, monitor) {
+      if (item.item.type == 'bun') {
+        setBun(item.item, dispatch);
+        return;
+      }
 
-  const checkoutOrderHandler = useCallback(() => {
-    checkoutOrder(constructorState.burgerSet, responseBody => {
-      setCheckoutResponse({ error: null, data: responseBody });
-    }, error => {
-      setCheckoutResponse({ data: null, error: error.toString() });
-    }, setLoading);
-  })
+      inserItem(0, item.item, dispatch);
+      return;
+    },
+  });
 
-  return (
-    <>
-      <IngredientsList items={constructorState.ingredients} />
-      <div className={`${style.footer} mt-10 mb-10 pr-4`}>
-        <p className={`text text_type_digits-medium ${style.price} mr-10`}>
-          {constructorState.cast} &nbsp; <CurrencyIcon type="primary" />
+  //drop(ref);
+
+  return ((burgerSet && burgerSet?.length || bun) ? (<>
+    <BurgerConstructorList />
+    <CheckoutPanel />
+  </>) : (
+    <div className={`${style.wrapper} pt-25`}>
+      <div ref={drop} className={`${isOver && style.light}`} >
+        <p className={`text text_type_main-large ${style['drop-box']}`}>
+          Пожалуйста, перенесите сюда булку и ингредиенты для создания заказа
         </p>
-        <CheckoutButton {...{ isLoading, checkoutOrderHandler }} />
       </div>
-      {checkoutResponse?.data?.success && (
-        <Modal title='' closeHandler={closeHandler}>
-          <OrderDetails
-            orderNumber={checkoutResponse?.data?.order?.number}
-            thingName={checkoutResponse?.data?.name}
-          />
-        </Modal>
-      )}
-      {(checkoutResponse?.data && !checkoutResponse?.data?.success)
-        || checkoutResponse?.error && (
-          <Modal title="Ошибка" closeHandler={closeErrorHandler}>
-            {JSON.stringify(checkoutResponse?.error)}
-          </Modal>
-        )}
-    </>
-  );
+    </div>
+  ));
+
 };
 
-function CheckoutButton({ isLoading, checkoutOrderHandler }) {
-  return (
-    <>
-      {isLoading
-        ? <img src={logo} className={style.spinner} alt="spinner" />
-        : <Button
-          onClick={checkoutOrderHandler}
-          htmlType="button"
-          type="primary"
-          size="large"
-        >Оформить заказ</Button>}
-    </>
-  );
+export function setBun(item, dispatch) {
+  //console.log('item._id: ' + item._id);
+  dispatch({ type: SET_CONSTRUCTOR_BUN, itemId: item._id });
 }
 
-export default BurgerConstructor;
+export function inserItem(to, item, dispatch) {
+  dispatch({
+    type: INSERT_CONSTRUCTOR_ITEM,
+    item: { ...item, uniqueId: uuid4() },
+    to,
+  });
+}
+
+export function moveItem(from, to, dispatch) {
+  dispatch({ type: MOVE_CONSTRUCTOR_ITEM, from, to });
+}
+
+export function removeItem(from, dispatch) {
+  dispatch({ type: REMOVE_CONSTRUCTOR_ITEM, from });
+}

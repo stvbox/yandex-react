@@ -5,7 +5,7 @@ import {
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import style from "./app-header.module.css";
 
-function AppHeader() {
+export function AppHeader() {
   return (
     <header className={style.header}>
       <nav className={`${style["buttons-block"]} p-5`}>
@@ -34,5 +34,3 @@ function AppHeader() {
     </header>
   );
 }
-
-export default AppHeader;

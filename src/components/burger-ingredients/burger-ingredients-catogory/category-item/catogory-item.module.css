@@ -1,0 +1,13 @@
+.item {
+    display: flex;
+    flex: 0 0 270px;
+    flex-direction: column;
+    /* background-color: grey; */
+    align-items: center;
+    position: relative;
+    cursor: pointer;
+}
+
+.name {
+    text-align: center;
+}

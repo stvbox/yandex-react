@@ -1,92 +1,56 @@
-import { useCallback, useState, useEffect, memo, useReducer } from "react";
-import { makeRandomBurgerSet } from "../../services/ingredientsContext";
-import { IngredientsContext, SelectedIngredientsContext } from "../../services/ingredientsContext";
-import { getIngredients } from "../../utils/requests";
+import { useCallback, useEffect } from "react";
+import { loadIngridients } from "../../services/actions/ingridients";
 import logo from "../../logo.svg";
-import AppHeader from "../app-header/app-header";
-import BurgerConstructor from "../burger-constructor/burger-constructor";
-import BurgerIngredients from "../burger-ingredients/burger-ingredients";
-import Modal from "../modal/modal";
+import { AppHeader } from "../app-header/app-header";
+import { BurgerConstructor } from "../burger-constructor/burger-constructor";
+import { BurgerIngredients } from "../burger-ingredients/burger-ingredients";
+import { Modal } from "../modal/modal";
+import { createStore } from 'redux';
+import { Provider } from 'react-redux';
+import { rootReducer } from "../../services/reducers";
+import { thunk } from "redux-thunk";
+import { applyMiddleware } from "redux";
+import { useSelector } from "react-redux";
+import { SET_INGRIDIENTS_ERROR } from "../../services/actions/ingridients";
+import { DndProvider } from "react-dnd";
+import { HTML5Backend } from "react-dnd-html5-backend";
+import { compose } from "redux";
 import style from "./app.module.css";
 
-const INGRIDIENTS_URL = "https://norma.nomoreparties.space/api/ingredients";
+const store = createStore(
+  rootReducer,
+  compose(
+    applyMiddleware(thunk),
+    window.__REDUX_DEVTOOLS_EXTENSION__
+      ? window.__REDUX_DEVTOOLS_EXTENSION__()
+      : args => args,
+    //window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+  ),
+);
+
+function AppWithStore() {
+  return (<DndProvider backend={HTML5Backend}>
+    <Provider store={store}><App /></Provider>
+  </DndProvider>);
+}
 
 function App() {
-  const [error, setError] = useState(null);
-  const [categories, setCategories] = useState({
-    bun: [],
-    main: [],
-    sauce: [],
-  });
-  const [ingridients, setIngridients] = useState([]);
 
-  async function loadIngridients() {
-    getIngredients((responseBody) => {
-      const categories = responseBody.data.reduce(
-        (memo, item, index) => {
-          memo[item.type] = [...memo[item.type], item];
-          return memo;
-        },
-        { bun: [], main: [], sauce: [] }
-      );
-      setIngridients(responseBody.data);
-      setCategories(categories);
-    }, (error) => {
-      setError(error);
-    });
-  }
+  const { ingridients, error, isLoading } = useSelector(store => ({
+    //isLoading: store.ingredients.isLoading,
+    ingridients: store.ingredients.items,
+    error: store.ingredients.error,
+    //constructorState: store.burgerConstructor,
+  }));
 
   useEffect(() => {
-    loadIngridients();
+    store.dispatch(loadIngridients()); // React StrictMode renders components twice on dev server
   }, []);
 
   const closeErrorModalHandler = useCallback((e) => {
-    setError(null);
-    loadIngridients();
+    store.dispatch({ type: SET_INGRIDIENTS_ERROR, error: null });
+    store.dispatch(loadIngridients()); // Повсторная згрузка произойдет, если была ошибка загрузки
   }, []);
-
-  const [constructorState, constructorDispatcher] = useReducer((state, action) => {
-    if (action.type == "random") {
-      const burgerSet = makeRandomBurgerSet(categories);
-
-      const items = burgerSet.reduce((memo, ingredientId) => {
-        const ingredient = ingridients.find(_ingredient => _ingredient['_id'] == ingredientId);
-        memo.push(ingredient);
-        return memo;
-      }, []);
-
-      const cast = items.reduce((memo, item) => {
-        if (item.type == 'bum') {
-          // по заданию булки не идут комплектом
-          return memo + item.price * 2;
-        }
-        return memo + item.price;
-      }, 0);
-
-      return {
-        ingredients: items,
-        burgerSet: burgerSet,
-        cast,
-      }
-    }
-
-    return {
-      ingredients: [],
-      burgerSet: [],
-      cast: 0,
-    };
-  }, {
-    ingredients: [],
-    burgerSet: [],
-    cast: 0,
-  });
-
-  useEffect(() => {
-    console.log(ingridients);
-    if (ingridients && !constructorState.ingredients.length) {
-      constructorDispatcher({ type: "random" });
-    }
-  }, [ingridients]);
 
   if (!error && ingridients && ingridients.length == 0) {
     return <img src={logo} className={style["App-logo"]} alt="logo" />;
@@ -94,21 +58,19 @@ function App() {
 
   return (
     <>
-      <div className="app-wrapper">
-        <AppHeader />
-        <main>
-          <IngredientsContext.Provider value={{ categories }} >
+      <Provider store={store}>
+        <div className="app-wrapper">
+          <AppHeader />
+          <main>
             <section className="section-wrapper pb-10">
               <BurgerIngredients />
             </section>
-            <SelectedIngredientsContext.Provider value={{ constructorState, constructorDispatcher }} >
-              <section className="section-wrapper ml-10">
-                <BurgerConstructor />
-              </section>
-            </SelectedIngredientsContext.Provider>
-          </IngredientsContext.Provider>
-        </main>
-      </div>
+            <section className="section-wrapper ml-10">
+              <BurgerConstructor />
+            </section>
+          </main>
+        </div>
+      </Provider>
       {error && (
         <Modal title="Ошибка получения данных" closeHandler={closeErrorModalHandler}>
           <p className="text text_type_main-medium">
@@ -120,7 +82,7 @@ function App() {
   );
 }
 
-export default App;
+export { AppWithStore as App };
 
 // function App() {
 //   return (
