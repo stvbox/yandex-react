@@ -1,0 +1,11 @@
+.section-wrapper {
+    flex: 1 1 100%;
+    display: flex;
+    align-items: flex-start;
+    flex-direction: column;
+    flex-wrap: wrap;
+    width: 1288px;
+    padding-top: 140px;
+    /* border: 1px red solid; */
+    text-align: center;
+}

@@ -1,12 +1,15 @@
-import { createRef } from "react";
+import { createRef, useEffect } from "react";
 import { BurgerIngredientsCategory } from "./burger-ingredients-catogory/burger-ingredients-catogory";
 import { Tabs } from "./tabs/tabs";
 import { useDispatch, useSelector } from "react-redux";
 import { Modal } from "../modal/modal";
 import { useCallback, useState } from "react";
-import { SET_CURRENT_INGRIDIENT } from "../../services/actions/ingridients";
 import { IngredientDetails } from "./ingridient-details/ingridient-details";
 import { useMemo } from "react";
+import { useNavigate } from "react-router-dom";
+import { createBrowserHistory } from "history";
+
+export const ingridientsHistory = createBrowserHistory();
 
 export const INGRIDIENTS_TYPES = {
   bun: { title: "Булки" },
@@ -15,16 +18,18 @@ export const INGRIDIENTS_TYPES = {
 };
 
 export function BurgerIngredients() {
-  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
   const [currentCategory, setCurrentCategory] = useState('bun');
+  const [currentItem, setCurrentItem] = useState(null);
 
   const scrollRef = useMemo(() => {
     return createRef();
   }, []);
 
-  const { categories, currentItem } = useSelector(store => ({
+  const { categories, ingredients } = useSelector(store => ({
     categories: store.ingredients.categories,
-    currentItem: store.ingredients.currentItem
+    ingredients: store.ingredients.items,
   }));
 
   const categoriesKeys = Object.keys(categories);
@@ -35,8 +40,26 @@ export function BurgerIngredients() {
   }, {});
 
   const closeHandler = useCallback((e) => {
-    dispatch({ type: SET_CURRENT_INGRIDIENT, payload: null });
-    //setCurrentItem(null);
+    navigate(-1);
+  }, []);
+
+  useEffect(() => { // Подписка на изменения location
+    const unlisten = ingridientsHistory.listen(({ action, location }) => {
+      if (action == 'PUSH' || action == 'POP') {
+
+        if (location.pathname == '/') {
+          setCurrentItem(null);
+          return;
+        }
+
+        const uuid = location.pathname.replace('/ingredients/', '');
+        const ingredient = ingredients.find(item => item._id == uuid);
+        setCurrentItem(ingredient);
+
+        console.log({ action, location });
+      }
+    });
+    return () => unlisten();
   }, []);
 
   const scrollHandler = (event) => {
@@ -53,8 +76,6 @@ export function BurgerIngredients() {
     });
     setCurrentCategory(nearest.type);
   };
-
-  //console.log('currentCategory: ', currentCategory);
 
   return (<>
     <p className="text text_type_main-large mt-10">Соберите бургер</p>

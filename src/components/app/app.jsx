@@ -1,9 +1,10 @@
 import { useCallback, useEffect } from "react";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { loadIngridients } from "../../services/actions/ingridients";
 import logo from "../../logo.svg";
 import { AppHeader } from "../app-header/app-header";
-import { BurgerConstructor } from "../burger-constructor/burger-constructor";
-import { BurgerIngredients } from "../burger-ingredients/burger-ingredients";
+import { ConstructorPage, LoginPage, RegisterPage, ForgotPage, ResetPage, ProfilePage, NotFound404 } from "../pages";
+import { IngredientDetails } from "../burger-ingredients/ingridient-details/ingridient-details";
 import { Modal } from "../modal/modal";
 import { createStore } from 'redux';
 import { Provider } from 'react-redux';
@@ -15,6 +16,10 @@ import { SET_INGRIDIENTS_ERROR } from "../../services/actions/ingridients";
 import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
 import { compose } from "redux";
+import { getUserInfo } from "../../services/actions/auth";
+import { Navigate } from "react-router-dom";
+import { OrdersPage } from "../pages/orders-page";
+import { ProfileForm } from "../profile-form/profile-form";
 import style from "./app.module.css";
 
 const store = createStore(
@@ -30,21 +35,25 @@ const store = createStore(
 
 function AppWithStore() {
   return (<DndProvider backend={HTML5Backend}>
-    <Provider store={store}><App /></Provider>
+    <Provider store={store}>
+      <App />
+    </Provider>
   </DndProvider>);
 }
 
 function App() {
 
-  const { ingridients, error, isLoading } = useSelector(store => ({
-    //isLoading: store.ingredients.isLoading,
+  const { waitUserInfo, ingridients, error, isLoading } = useSelector(store => ({
+    // isLoading: store.ingredients.isLoading,
+    // constructorState: store.burgerConstructor,
     ingridients: store.ingredients.items,
     error: store.ingredients.error,
-    //constructorState: store.burgerConstructor,
+    waitUserInfo: store.burgerAuth.wait,
   }));
 
   useEffect(() => {
     store.dispatch(loadIngridients()); // React StrictMode renders components twice on dev server
+    store.dispatch(getUserInfo());
   }, []);
 
   const closeErrorModalHandler = useCallback((e) => {
@@ -52,34 +61,72 @@ function App() {
     store.dispatch(loadIngridients()); // Повсторная згрузка произойдет, если была ошибка загрузки
   }, []);
 
-  if (!error && ingridients && ingridients.length == 0) {
+  if (waitUserInfo || !error && ingridients && ingridients.length == 0) {
     return <img src={logo} className={style["App-logo"]} alt="logo" />;
   }
 
-  return (
-    <>
-      <Provider store={store}>
-        <div className="app-wrapper">
-          <AppHeader />
-          <main>
-            <section className="section-wrapper pb-10">
-              <BurgerIngredients />
-            </section>
-            <section className="section-wrapper ml-10">
-              <BurgerConstructor />
-            </section>
-          </main>
-        </div>
-      </Provider>
-      {error && (
-        <Modal title="Ошибка получения данных" closeHandler={closeErrorModalHandler}>
-          <p className="text text_type_main-medium">
-            {error.toString()}
-          </p>
-        </Modal>
-      )}
-    </>
-  );
+  return (<BrowserRouter>
+    <Provider store={store}>
+      <div className="app-wrapper">
+        <AppHeader />
+        <Routes>
+          {/* / - главная страница, конструктор бургеров. */}
+          <Route path="/" element={<ConstructorPage />} />
+          <Route path="/ingredients/:id" element={<IngredientDetails />} />
+
+          {/* /login - страница авторизации. */}
+          <Route path="/login" element={<ProtectedRouteElement element={<LoginPage />} ifAuth='/profile' />} />
+          {/* /register - страница регистрации. */}
+          <Route path="/register" element={<ProtectedRouteElement element={<RegisterPage />} ifAuth='/profile' />} />
+          {/* /forgot-password - страница восстановления пароля. */}
+          <Route path="/forgot-password" element={<ProtectedRouteElement element={<ForgotPage />} ifAuth='/profile' />} />
+          {/* /reset-password - страница сброса пароля. */}
+          <Route path="/reset-password" element={<ProtectedRouteElement element={<ResetPage />} ifAuth='/profile' />} />
+          {/* /profile — страница с настройками профиля пользователя. */}
+          <Route path="/profile" element={<ProtectedRouteElement element={<ProfilePage />} ifNotAuth={<LoginPage />} />}>
+
+            {/* /profile — страница списка заказов. */}
+            <Route index element={<ProfileForm />} />
+            {/* /profile/orders — страница списка заказов. */}
+            <Route path="orders" element={<OrdersPage />} />
+
+          </Route>
+
+          {/* /ingredients/:id — страница ингредиента. */}
+          <Route path="/ingredients/:id" element={<ConstructorPage />} />
+          <Route path="*" element={<NotFound404 />} />
+        </Routes>
+      </div>
+    </Provider>
+    {error && (
+      <Modal title="Ошибка получения данных" closeHandler={closeErrorModalHandler}>
+        <p className="text text_type_main-medium">
+          {error.toString()}
+        </p>
+      </Modal>
+    )}
+  </BrowserRouter>);
+}
+
+export function ProtectedRouteElement({ element, ifAuth, ifNotAuth }) {
+
+  const { email } = useSelector(store => ({
+    email: store.burgerAuth.email,
+  }));
+
+  if (email) {
+    if (ifAuth) {
+      return (typeof ifAuth == 'string')
+        ? (<Navigate to={ifAuth} />) : ifAuth;
+    }
+  } else {
+    if (ifNotAuth) {
+      return (typeof ifNotAuth == 'string')
+        ? (<Navigate to={ifNotAuth} />) : ifNotAuth;
+    }
+  }
+
+  return element;
 }
 
 export { AppWithStore as App };

@@ -1,7 +1,33 @@
 import { menuItem } from "../../../utils/data.type";
+import { useParams } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { ModalWindow } from "../../modal/modal-window/modal-window";
 import style from "./ingridient-details.module.css";
 
 export const IngredientDetails = ({ ingridient }) => {
+  const params = useParams();
+
+  const { items } = useSelector(store => ({
+    items: store.ingredients.items
+  }));
+
+  const _ingridient = ingridient || items.find(item => item._id == params.id);
+
+  if (ingridient) {
+    return (<IngredientDetailsInner ingridient={_ingridient} />);
+  }
+
+  return (<section className={style['section-wrapper']} >
+    <div className={style['details-wrapper']} >
+      <p className="text text_type_main-large">
+        Детали ингредиента
+      </p>
+      <IngredientDetailsInner ingridient={_ingridient} />
+    </div>
+  </section>);
+}
+
+export function IngredientDetailsInner({ ingridient }) {
   return (<>
     <img
       src={ingridient.image}

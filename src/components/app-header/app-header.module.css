@@ -1,4 +1,5 @@
 .header {
+  flex: 1 1 1px;
   display: flex;
   /* border: 1px red solid; */
   justify-content: center;
