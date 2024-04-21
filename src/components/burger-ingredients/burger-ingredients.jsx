@@ -19,24 +19,14 @@ export const INGRIDIENTS_TYPES = {
 };
 
 export function BurgerIngredients() {
-  const location = useLocation();
-  const ingredientId = location.state?.ingridientId;
-
-  // const ingredientId = window.history.state.ingridientId;
-  // console.log('window.history.state.usr?.ingredientId: ', window.history.state.ingridientId);
-
-  const navigate = useNavigate();
-
   const [currentCategory, setCurrentCategory] = useState('bun');
-  const [currentItem, setCurrentItem] = useState(null);
 
   const scrollRef = useMemo(() => {
     return createRef();
   }, []);
 
-  const { categories, ingredients } = useSelector(store => ({
+  const { categories} = useSelector(store => ({
     categories: store.ingredients.categories,
-    ingredients: store.ingredients.items,
   }));
 
   const categoriesKeys = Object.keys(categories);
@@ -45,15 +35,6 @@ export function BurgerIngredients() {
     memo[key] = { ...INGRIDIENTS_TYPES[key], ref: createRef() };
     return memo;
   }, {});
-
-  const closeHandler = useCallback((e) => {
-    navigate(-1);
-  }, []);
-
-  useEffect(() => { // Подписка на изменения location
-    const ingredient = ingredients.find(item => item._id == ingredientId);
-    setCurrentItem(ingredient);
-  }, [ingredientId]);
 
   const scrollHandler = (event) => {
     let nearest = { lap: 99999 };
@@ -86,13 +67,5 @@ export function BurgerIngredients() {
         );
       })}
     </div>
-    {currentItem && (
-      <Modal title="Детали ингредиента" closeHandler={closeHandler}>
-        <IngredientDetails
-          ingridient={currentItem}
-          closeHandler={closeHandler}
-        />
-      </Modal>
-    )}
   </>);
 };

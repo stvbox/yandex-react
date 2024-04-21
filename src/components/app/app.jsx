@@ -4,13 +4,13 @@ import { loadIngridients } from "../../services/actions/ingridients";
 import { AppHeader } from "../app-header/app-header";
 import { ConstructorPage, LoginPage, RegisterPage, ForgotPage, ResetPage, ProfilePage, NotFound404 } from "../../pages";
 import { IngredientDetails } from "../burger-ingredients/ingridient-details/ingridient-details";
-import { Modal } from "../modal/modal";
 import { useDispatch, useSelector } from 'react-redux';
 import { SET_INGRIDIENTS_ERROR } from "../../services/actions/ingridients";
 import { getUserInfo } from "../../services/actions/auth";
 import { OrdersPage } from "../../pages/orders-page";
 import { ProfileForm } from "../profile-form/profile-form";
-import { ProtectedRouteElement } from "./protected-route/protected-route";
+import { ProtectedRouteElement } from "../protected-route/protected-route";
+import { BurgerIngredientsCategoryItemModal } from "../burger-ingredients/burger-ingredients-catogory/category-item-modal/category-item-modal";
 import logo from "../../logo.svg";
 import style from "./app.module.css";
 
@@ -18,6 +18,7 @@ function App() {
   const dispatch = useDispatch();
   const location = useLocation();
   const background = location.state?.background;
+  const ingridientId = location.state?.ingridientId;
 
   const { waitUserInfo, ingridients, error } = useSelector(store => ({
     ingridients: store.ingredients.items,
@@ -72,21 +73,12 @@ function App() {
       </Routes>
 
       {/* Show the modal when a `backgroundLocation` is set */}
-      {background && (
+      {background && ( // Итолько сейчас я понял, что это просто дополниетельная точка реакции на маршрут...
         <Routes>
-          <Route path="/ingredients/:id" element={<ConstructorPage />} />
+          <Route path="/ingredients/:id" element={<BurgerIngredientsCategoryItemModal ingridientId={ingridientId} />} />
         </Routes>
       )}
     </div>
-    {
-      error && (
-        <Modal title="Ошибка получения данных" closeHandler={closeErrorModalHandler}>
-          <p className="text text_type_main-medium">
-            {JSON.stringify(error.message)}
-          </p>
-        </Modal>
-      )
-    }
   </>);
 }
 
