@@ -1,7 +1,6 @@
 import { menuItem } from "../../../utils/data.type";
 import { useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
-import { ModalWindow } from "../../modal/modal-window/modal-window";
 import style from "./ingridient-details.module.css";
 
 export const IngredientDetails = ({ ingridient }) => {

@@ -1,8 +1,8 @@
 import { useCallback, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { BurgersForm } from "../form/burger-form";
-import { BurgerSpinner } from "../spinner/spinner";
-import { resetPassword } from "../../utils/requests";
+import { BurgersForm } from "../components/form/burger-form";
+import { BurgerSpinner } from "../components/spinner/spinner";
+import { resetPassword } from "../utils/requests";
 import style from "./forgot-page.module.css";
 
 

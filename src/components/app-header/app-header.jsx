@@ -5,9 +5,11 @@ import {
   ListIcon,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import style from "./app-header.module.css";
-import { Link, NavLink } from "react-router-dom";
+import { NavLink } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 export function AppHeader() {
+  //const navigate = useNavigate();
 
   const { name } = useSelector(store => ({
     name: store.burgerAuth.name,
@@ -29,8 +31,10 @@ export function AppHeader() {
           </NavLink>
         </div>
       </nav>
-      <div className={style["logo-block"]}>
-        <Logo />
+      <div className={style["logo-block"]} >
+        <NavLink to={'/'}>
+          <Logo />
+        </NavLink>
       </div>
       <div
         className={`${style["buttons-block"]} ${style["buttons-block__left"]} p-5`}

@@ -1,15 +1,16 @@
-import { createRef, useEffect } from "react";
+import { createRef } from "react";
 import { BurgerIngredientsCategory } from "./burger-ingredients-catogory/burger-ingredients-catogory";
 import { Tabs } from "./tabs/tabs";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { Modal } from "../modal/modal";
 import { useCallback, useState } from "react";
 import { IngredientDetails } from "./ingridient-details/ingridient-details";
-import { useMemo } from "react";
+import { useMemo, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { createBrowserHistory } from "history";
+import { useLocation } from "react-router-dom";
 
-export const ingridientsHistory = createBrowserHistory();
+// import { createBrowserHistory } from "history";
+// export const ingridientsHistory = createBrowserHistory();
 
 export const INGRIDIENTS_TYPES = {
   bun: { title: "Булки" },
@@ -18,6 +19,12 @@ export const INGRIDIENTS_TYPES = {
 };
 
 export function BurgerIngredients() {
+  const location = useLocation();
+  const ingredientId = location.state?.ingridientId;
+
+  // const ingredientId = window.history.state.ingridientId;
+  // console.log('window.history.state.usr?.ingredientId: ', window.history.state.ingridientId);
+
   const navigate = useNavigate();
 
   const [currentCategory, setCurrentCategory] = useState('bun');
@@ -44,23 +51,9 @@ export function BurgerIngredients() {
   }, []);
 
   useEffect(() => { // Подписка на изменения location
-    const unlisten = ingridientsHistory.listen(({ action, location }) => {
-      if (action == 'PUSH' || action == 'POP') {
-
-        if (location.pathname == '/') {
-          setCurrentItem(null);
-          return;
-        }
-
-        const uuid = location.pathname.replace('/ingredients/', '');
-        const ingredient = ingredients.find(item => item._id == uuid);
-        setCurrentItem(ingredient);
-
-        console.log({ action, location });
-      }
-    });
-    return () => unlisten();
-  }, []);
+    const ingredient = ingredients.find(item => item._id == ingredientId);
+    setCurrentItem(ingredient);
+  }, [ingredientId]);
 
   const scrollHandler = (event) => {
     let nearest = { lap: 99999 };

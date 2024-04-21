@@ -1,5 +1,5 @@
 import { Outlet } from 'react-router-dom';
-import { ProfileNavigation } from '../profile-navigation/profile-navigation';
+import { ProfileNavigation } from '../components/profile-navigation/profile-navigation';
 import style from './profile-page.module.css';
 
 

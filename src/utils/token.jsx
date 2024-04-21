@@ -59,7 +59,9 @@ export const _refreshToken = () => {
 
 export const fetchWithRefresh = async (url, options) => {
     try {
-        return await fetch(url, options).then(async (response) => {
+        return await fetch(url, {
+            ...options, timeout: 6000
+        }).then(async (response) => {
             const respJson = await response.json();
 
             if (respJson.message === "jwt expired") {
@@ -70,7 +72,7 @@ export const fetchWithRefresh = async (url, options) => {
                 ok: response.ok,
                 status: response.status,
                 statusText: response.statusText,
-                json: async () => respJson,
+                json: respJson,
             };
         }, (error) => {
             console.log(error);

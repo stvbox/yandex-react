@@ -12,6 +12,7 @@
 .logo-block {
   flex: 0 0 40%;
   text-align: center;
+  cursor: pointer;
 }
 
 .buttons-block {

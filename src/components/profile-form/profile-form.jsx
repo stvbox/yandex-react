@@ -1,12 +1,19 @@
 import { Button } from '@ya.praktikum/react-developer-burger-ui-components';
 import { BurgersForm } from '../form/burger-form';
 import { useNavigate } from 'react-router-dom';
-import { useEffect, useMemo, useState } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
+import { BurgerSpinner } from '../spinner/spinner';
 import { useSelector } from 'react-redux';
+import { updateUserInfo } from '../../utils/requests';
+import { useDispatch } from 'react-redux';
+import { getUserInfo } from '../../services/actions/auth';
 import style from './profile-form.module.css';
 
 export function ProfileForm() {
+    const [wait, setWait] = useState(false);
+
     const navigate = useNavigate();
+    const dispatch = useDispatch();
 
     useEffect(() => {
         if (!storeEmail) {
@@ -33,6 +40,27 @@ export function ProfileForm() {
         { name: 'password', placeholder: 'Пароль', type: 'password', setValue: setPassword, value: password },
     ], [name, login, password, storeName, storeEmail]);
 
+    const okClickHandler = useCallback((event) => {
+        setWait(true);
+        updateUserInfo({ email: login, password, name }, response => {
+
+            console.log('response: ', response);
+
+            dispatch(getUserInfo());
+            setWait(false);
+        }, error => {
+            setWait(false);
+        });
+    }, [name, login, password, storeName, storeEmail]);
+
+    if (wait) {
+        return (
+            <section className={style['section-wrapper']} >
+                <BurgerSpinner height={134} />
+            </section>
+        );
+    }
+
     return (<>
         <BurgersForm inputs={inputs} />
         <div className={`${style['buttons-block']}`} >
@@ -44,7 +72,7 @@ export function ProfileForm() {
                 <Button htmlType="button" type="secondary" size="medium">
                     Отмена
                 </Button>
-                <Button htmlType="button" type="primary" size="medium">
+                <Button onClick={okClickHandler} htmlType="button" type="primary" size="medium">
                     Сохранить
                 </Button>
             </>}

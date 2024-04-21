@@ -1,17 +1,16 @@
 import { useState, useCallback, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useLocation } from "react-router-dom";
-import { BurgersForm } from "../form/burger-form";
-import { BurgerSpinner } from "../spinner/spinner";
-import { Modal } from "../modal/modal";
+import { BurgersForm } from "../components/form/burger-form";
+import { BurgerSpinner } from "../components/spinner/spinner";
+import { Modal } from "../components/modal/modal";
 import { Link } from "react-router-dom";
-import { authLogin } from "../../utils/requests";
-import { getUserInfo } from '../../services/actions/auth';
+import { authLogin } from "../utils/requests";
+import { getUserInfo } from '../services/actions/auth';
 import style from "./login-page.module.css";
 
 export function LoginPage() {
-    let location = useLocation();
-
+    const location = useLocation();
     const navigate = useNavigate();
     const dispatch = useDispatch();
 
@@ -91,7 +90,7 @@ export function LoginPage() {
         {error && (
             <Modal title="Ошибка получения данных" closeHandler={closeErrorModalHandler}>
                 <p className="text text_type_main-medium">
-                    {error.toString()}
+                    {JSON.stringify(error.message)}
                 </p>
             </Modal>
         )}

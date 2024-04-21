@@ -1,9 +1,9 @@
 import { useState, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
-import { BurgersForm } from "../form/burger-form";
-import { BurgerSpinner } from "../spinner/spinner";
-import { registerUser } from "../../utils/requests";
+import { BurgersForm } from "../components/form/burger-form";
+import { BurgerSpinner } from "../components/spinner/spinner";
+import { registerUser } from "../utils/requests";
 import style from "./register-page.module.css";
 
 
