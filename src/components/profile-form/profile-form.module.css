@@ -1,0 +1,23 @@
+.description {
+    display: block;
+    position: absolute;
+    /* flex: 0 0 320px; */
+    width: 320px;
+    right: 100%;
+    color: #8585AD;
+    font-weight: 400;
+    opacity: .4;
+    overflow: visible;
+    /* border: 1px red dashed; */
+}
+
+.buttons-block {
+    flex: 1 1 100%;
+    display: flex;
+    /* border: 1px green dashed; */
+    align-self: stretch;
+    justify-content: end;
+    padding-right: 70px;
+    position: relative;
+    overflow: visible;
+}

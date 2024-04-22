@@ -1,12 +1,16 @@
 import { createRef } from "react";
 import { BurgerIngredientsCategory } from "./burger-ingredients-catogory/burger-ingredients-catogory";
 import { Tabs } from "./tabs/tabs";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { Modal } from "../modal/modal";
 import { useCallback, useState } from "react";
-import { SET_CURRENT_INGRIDIENT } from "../../services/actions/ingridients";
 import { IngredientDetails } from "./ingridient-details/ingridient-details";
-import { useMemo } from "react";
+import { useMemo, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import { useLocation } from "react-router-dom";
+
+// import { createBrowserHistory } from "history";
+// export const ingridientsHistory = createBrowserHistory();
 
 export const INGRIDIENTS_TYPES = {
   bun: { title: "Булки" },
@@ -15,16 +19,14 @@ export const INGRIDIENTS_TYPES = {
 };
 
 export function BurgerIngredients() {
-  const dispatch = useDispatch();
   const [currentCategory, setCurrentCategory] = useState('bun');
 
   const scrollRef = useMemo(() => {
     return createRef();
   }, []);
 
-  const { categories, currentItem } = useSelector(store => ({
+  const { categories} = useSelector(store => ({
     categories: store.ingredients.categories,
-    currentItem: store.ingredients.currentItem
   }));
 
   const categoriesKeys = Object.keys(categories);
@@ -33,11 +35,6 @@ export function BurgerIngredients() {
     memo[key] = { ...INGRIDIENTS_TYPES[key], ref: createRef() };
     return memo;
   }, {});
-
-  const closeHandler = useCallback((e) => {
-    dispatch({ type: SET_CURRENT_INGRIDIENT, payload: null });
-    //setCurrentItem(null);
-  }, []);
 
   const scrollHandler = (event) => {
     let nearest = { lap: 99999 };
@@ -53,8 +50,6 @@ export function BurgerIngredients() {
     });
     setCurrentCategory(nearest.type);
   };
-
-  //console.log('currentCategory: ', currentCategory);
 
   return (<>
     <p className="text text_type_main-large mt-10">Соберите бургер</p>
@@ -72,13 +67,5 @@ export function BurgerIngredients() {
         );
       })}
     </div>
-    {currentItem && (
-      <Modal title="Детали ингредиента" closeHandler={closeHandler}>
-        <IngredientDetails
-          ingridient={currentItem}
-          closeHandler={closeHandler}
-        />
-      </Modal>
-    )}
   </>);
 };

@@ -1,6 +1,7 @@
 import { useCallback, useMemo } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
+import { useNavigate } from "react-router-dom";
 import { Modal } from "../../modal/modal";
 import { OrderDetails } from "../order-details/order-details";
 import { sendOrder } from "../../../services/actions/order";
@@ -10,14 +11,16 @@ import style from "./checkout-panel.module.css";
 import { CheckoutButton } from "./checkout-button/checkout-button";
 
 export function CheckoutPanel() {
+    const navigate = useNavigate();
     const dispatch = useDispatch();
 
-    const { bun, burgerSet, ingredients, checkoutResponse, isLoading } = useSelector(store => ({
+    const { bun, burgerSet, ingredients, checkoutResponse, isLoading, userEmail } = useSelector(store => ({
         bun: store.burgerConstructor.bun,
         burgerSet: store.burgerConstructor.burgerSet,
         ingredients: store.ingredients.items,
         checkoutResponse: store.order.result,
         isLoading: store.order.isWait,
+        userEmail: store.burgerAuth.email,
     }));
 
     const cast = useMemo(() => { // Подсчет стоимости сэта
@@ -40,20 +43,22 @@ export function CheckoutPanel() {
     }, [burgerSet, bun]);
 
     const checkoutOrderHandler = useCallback(() => {
-        dispatch(sendOrder(burgerSet));
+        if (userEmail) {
+            dispatch(sendOrder(burgerSet));
+            return;
+        }
+
+        navigate('/login', { state: { goBack: true } });
     });
 
     const closeHandler = useCallback((event) => {
         dispatch({ type: SET_ORDER_STATE, payload: { data: null, error: null } });
         dispatch({ type: RESET_CONSTRUCTOR_STATE });
-        //dispatch(makeRandomBurger(ingredients));
     }, []);
 
     const closeErrorHandler = useCallback((event) => {
         dispatch({ type: SET_ORDER_STATE, payload: { data: null, error: null } });
     }, []);
-
-    //console.log('checkoutResponse: ', checkoutResponse);
 
     return (<>
         <div className={`${style.footer} mt-10 mb-10 pr-4`}>

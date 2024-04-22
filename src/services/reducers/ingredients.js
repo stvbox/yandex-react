@@ -3,7 +3,6 @@ import {
     SET_INGRIDIENTS_CATEGORIES,
     SET_INGRIDIENTS_LOADING,
     SET_INGRIDIENTS_ERROR,
-    SET_CURRENT_INGRIDIENT,
 } from "../actions/ingridients";
 
 
@@ -35,14 +34,6 @@ export const ingredients = (state = initialState, action) => {
             return {
                 ...state,
                 error: action.error,
-            };
-        case SET_CURRENT_INGRIDIENT:
-
-            console.log(action.payload);
-
-            return {
-                ...state,
-                currentItem: action.payload,
             };
     }
     return state;

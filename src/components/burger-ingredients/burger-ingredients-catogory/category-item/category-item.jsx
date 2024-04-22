@@ -4,14 +4,16 @@ import {
     Counter,
     CurrencyIcon,
 } from "@ya.praktikum/react-developer-burger-ui-components";
-import { SET_CURRENT_INGRIDIENT } from "../../../../services/actions/ingridients";
-import { useDispatch } from "react-redux";
 import { useDrag } from "react-dnd";
+import { SET_INGRIDIENTS_ERROR } from "../../../../services/actions/ingridients";
+//import { ingridientsHistory } from "../../burger-ingredients";
+import { useNavigate } from "react-router-dom";
 import PropTypes from "prop-types";
 import style from "./catogory-item.module.css";
+import { useDispatch } from "react-redux";
 
 export function BurgerIngredientsCategoryItem({ item, count, index }) {
-
+    const navigate = useNavigate();
     const dispatch = useDispatch();
 
     const [collected, drag] = useDrag(() => ({
@@ -22,7 +24,9 @@ export function BurgerIngredientsCategoryItem({ item, count, index }) {
     }));
 
     const clickIngridientHandler = useCallback((ingridient) => {
-        dispatch({ type: SET_CURRENT_INGRIDIENT, payload: ingridient });
+        navigate(`/ingredients/${ingridient._id}`, {
+            state: { background: true, ingridientId: ingridient._id },
+        });
     });
 
     return (<li

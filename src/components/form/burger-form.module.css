@@ -1,0 +1,13 @@
+
+
+.form-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    /* border: 1px green solid; */
+    width: 480px;
+}
+
+/* .padding-rest {
+    padding: 0;
+} */

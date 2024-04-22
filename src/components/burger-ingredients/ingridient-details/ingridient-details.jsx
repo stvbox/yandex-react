@@ -1,7 +1,35 @@
 import { menuItem } from "../../../utils/data.type";
+import { useParams } from "react-router-dom";
+import { useSelector } from "react-redux";
+import PropTypes from "prop-types";
 import style from "./ingridient-details.module.css";
 
-export const IngredientDetails = ({ ingridient }) => {
+export const IngredientDetails = ({ ingridient, isModal }) => {
+  const params = useParams();
+
+  const { items } = useSelector(store => ({
+    items: store.ingredients.items
+  }));
+
+  const _ingridient = ingridient || items.find(item => item._id == params.id);
+
+  if (isModal) {
+    return (<IngredientDetailsInner ingridient={_ingridient} />);
+  }
+
+  return (<section className={style['section-wrapper']} >
+    <div className={style['details-wrapper']} >
+
+      <p className="text text_type_main-large">
+        Детали ингредиента
+      </p>
+
+      <IngredientDetailsInner ingridient={_ingridient} />
+    </div>
+  </section>);
+}
+
+export function IngredientDetailsInner({ ingridient }) {
   return (<>
     <img
       src={ingridient.image}
@@ -34,5 +62,6 @@ export const IngredientDetails = ({ ingridient }) => {
 
 IngredientDetails.propTypes = {
   ingridient: menuItem.isRequired,
+  isModal: PropTypes.bool,
 };
 

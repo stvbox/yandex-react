@@ -1,0 +1,18 @@
+.profile-nav {
+    flex: 0 0 320px;
+    display: flex;
+    flex-direction: column;
+    /* border: 1px green dashed; */
+    color: #8585AD;
+
+    * {
+        font-style: normal !important;
+        color: var(--text-inactive-color) !important;
+        text-decoration: none;
+        /* text-align: center; */
+    }
+
+    .active {
+        color: var(--text-primary-color) !important;
+    }
+}
