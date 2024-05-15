@@ -41,7 +41,7 @@ export function ProfileForm() {
         { name: 'password', placeholder: 'Пароль', type: 'password', setValue: setPassword, value: password },
     ], [name, login, password, storeName, storeEmail]);
 
-    const okClickHandler = useCallback((event: SyntheticEvent<Element, Event>) => {
+    const okClickHandler = useCallback(() => {
         dispatch(updateUserInfo({ email: login, password, name }));
     }, [name, login, password, storeName, storeEmail]);
 

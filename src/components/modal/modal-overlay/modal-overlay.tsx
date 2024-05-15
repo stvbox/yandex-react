@@ -1,11 +1,11 @@
 import PropTypes from "prop-types";
 import style from "./modal-overlay.module.css";
-import { FC, ReactNode } from "react";
+import { FC, MouseEventHandler, ReactNode } from "react";
 
 
 interface ModalOverlayCompProps {
   children: ReactNode;
-  onClick: () => any;
+  onClick: MouseEventHandler<HTMLDivElement>;
 }
 
 export const ModalOverlay: FC<ModalOverlayCompProps> = ({ children, onClick }) => {

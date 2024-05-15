@@ -9,8 +9,8 @@ import { RootState, useAppDispatch } from "../../..";
 import { ConstructorActions, constructorActions } from "../../../services/reducers/constructor";
 import { ordersActions } from "../../../services/reducers/orders";
 import { OrderActions } from "../../../services/reducers/orders.types";
-import style from "./checkout-panel.module.css";
 import { checkoutOrder } from "../../../services/actions/orders";
+import style from "./checkout-panel.module.css";
 
 
 export function CheckoutPanel() {
@@ -58,7 +58,7 @@ export function CheckoutPanel() {
         navigate('/login', { state: { goBack: true } });
     }, [burgerSet]);
 
-    const closeHandler = useCallback((event: Event) => {
+    const closeHandler = useCallback(() => {
         dispatch(ordersActions[OrderActions.RESET_ORDER_STATE]());
         dispatch(constructorActions[ConstructorActions.RESET_CONSTRUCTOR_STATE]());
 
@@ -67,7 +67,7 @@ export function CheckoutPanel() {
         // dispatch({ type: OrderActions.SET_ORDER_STATE, payload: { data: null, error: null } });
     }, []);
 
-    const closeErrorHandler = useCallback((event: Event) => {
+    const closeErrorHandler = useCallback(() => {
         dispatch(ordersActions[OrderActions.RESET_ORDER_STATE]());
         //dispatch({ type: OrderActions.RESET_ORDER_STATE });
         //dispatch({ type: OrderActions.SET_ORDER_STATE, payload: { data: null, error: null } });

@@ -1,13 +1,10 @@
 import { Button } from "@ya.praktikum/react-developer-burger-ui-components";
-import PropTypes from "prop-types";
-import logo from "../../../../logo.svg";
-import style from "./checkout-button.module.css";
 import { BurgerSpinner } from "../../../spinner/spinner";
 import { FC } from "react";
 
 
 interface ICompProps {
-    checkoutOrderHandler: () => any;
+    checkoutOrderHandler: () => void;
     isLoading: boolean;
 }
 

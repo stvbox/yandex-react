@@ -42,7 +42,7 @@ export function LoginPage() {
         { name: 'password', placeholder: 'пароль', type: 'password', setValue: setPassword, value: password },
     ];
 
-    const buttonFormHandler = useCallback((event: SyntheticEvent<Element, Event>) => {
+    const buttonFormHandler = useCallback(() => {
         dispatch(authUser({ email, password })).then(result => {
             return result as PayloadAction<FetchResponse<IAuthResult>>;
         }).then(result => {
@@ -63,7 +63,7 @@ export function LoginPage() {
         });
     }, [email, password]);
 
-    const closeErrorModalHandler = useCallback((event: Event) => {
+    const closeErrorModalHandler = useCallback(() => {
         dispatch(authActions[AuthActions.RESET_AUTH_ERROR]());
     }, []);
 

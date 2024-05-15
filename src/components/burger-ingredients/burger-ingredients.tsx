@@ -1,14 +1,10 @@
-import { Ref, RefObject, createRef } from "react";
+import { RefObject, createRef } from "react";
 import { BurgerIngredientsCategory } from "./burger-ingredients-catogory/burger-ingredients-catogory";
 import { Tabs } from "./tabs/tabs";
 import { useSelector } from "react-redux";
-import { Modal } from "../modal/modal";
-import { useCallback, useState } from "react";
-import { IngredientDetails } from "./ingridient-details/ingridient-details";
-import { useMemo, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
-import { useLocation } from "react-router-dom";
-import { IMenuItem, IngridientsTypes } from "../../utils/data.type";
+import { useState } from "react";
+import { useMemo } from "react";
+import { IngridientsTypes } from "../../utils/data.type";
 import { RootState } from "../..";
 
 // import { createBrowserHistory } from "history";
@@ -18,7 +14,7 @@ import { RootState } from "../..";
 type HedersType = {
   [key in IngridientsTypes as string]: {
     title: string;
-    ref: any;
+    ref: RefObject<HTMLDivElement>;
   };
 };
 
@@ -52,12 +48,15 @@ export function BurgerIngredients() {
     return memo;
   }, {} as HedersType);
 
-  const scrollHandler = (event: any) => {
+  const scrollHandler = () => {
     let nearest = { lap: 99999, type: '' };
     const scrollPosition = scrollRef.current.scrollTop + scrollRef.current.offsetTop;
     Object.keys(headers).forEach(key => {
-      const headerOffsetTop = headers[key].ref.current.offsetTop;
+      const headerRef = headers[key];
+
+      const headerOffsetTop = headerRef?.ref?.current?.offsetTop || 0;
       const lap = Math.abs(headerOffsetTop - scrollPosition);
+
       //console.log(key + ': ' + lap);
       if (lap <= nearest.lap) {
         nearest.type = key;

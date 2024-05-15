@@ -24,7 +24,7 @@ export const BurgerIngredientsCategoryItemModal: FC<ICompParams> = ({ ingredient
         setCurrentItem(ingredient);
     }, [ingredientId]);
 
-    const closeHandler = useCallback((e: any) => {
+    const closeHandler = useCallback(() => {
         navigate(-1);
     }, []);
 

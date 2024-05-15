@@ -13,7 +13,7 @@ export interface IAuthState {
 
 export interface ILoadUserInfoResult {
     success: boolean;
-    user: { email: any; name: any; };
+    user: { email: string; name: string; };
 }
 
 export interface IAuthUser {

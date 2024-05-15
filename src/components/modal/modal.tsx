@@ -1,14 +1,13 @@
 import { FC, ReactNode, useEffect, useState } from "react";
 import { ModalOverlay } from "./modal-overlay/modal-overlay";
 import { createPortal } from "react-dom";
-import PropTypes from "prop-types";
 import { ModalWindow } from "./modal-window/modal-window";
 
 
 interface IModalCompProps {
   title: string;
   children: ReactNode;
-  closeHandler: (...args: any[]) => any;
+  closeHandler: () => void;
 }
 
 export const Modal: FC<IModalCompProps> = ({ title, children, closeHandler }) => {
@@ -20,9 +19,9 @@ export const Modal: FC<IModalCompProps> = ({ title, children, closeHandler }) =>
       setModalsWrapper(modalsElement);
     }
 
-    function closeByEscape(event: any) {
+    const closeByEscape = (event: KeyboardEvent) => {
       if (event.key === "Escape") {
-        closeHandler();
+        closeHandler()
       }
     }
 
@@ -42,7 +41,7 @@ export const Modal: FC<IModalCompProps> = ({ title, children, closeHandler }) =>
   );
 }
 
-Modal.propTypes = {
-  title: PropTypes.string.isRequired,
-  closeHandler: PropTypes.func.isRequired,
-};
+// Modal.propTypes = {
+//   title: PropTypes.string.isRequired,
+//   closeHandler: PropTypes.func.isRequired,
+// };
