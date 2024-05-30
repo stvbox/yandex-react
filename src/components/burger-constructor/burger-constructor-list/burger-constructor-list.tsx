@@ -2,9 +2,8 @@ import { useMemo } from "react";
 import { useSelector } from "react-redux";
 import { IngredientsListCenter } from "./ingredients-list-center/ingredients-list-center";
 import { BunComponent } from "./bun-component/bun-component";
-import style from "./burger-constructor-list.module.css";
 import { RootState } from "../../..";
-import { IMenuItem } from "../../../utils/data.type";
+import style from "./burger-constructor-list.module.css";
 
 
 export function BurgerConstructorList() {

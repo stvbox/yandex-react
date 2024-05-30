@@ -1,0 +1,22 @@
+
+.section-wrapper-left {
+    flex: 0 0 608px;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    /* border: 5px blue solid; */
+    /* padding-bottom: 50px; */
+}
+
+.section-wrapper-right {
+    flex: 0 0 580px;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    /* border: 5px red solid; */
+    /* padding-bottom: 50px; */
+}
+
+.feed-block {
+    flex-direction: column;
+}

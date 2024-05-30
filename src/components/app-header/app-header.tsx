@@ -26,7 +26,7 @@ export function AppHeader() {
         </div>
         <div className={`${style["line"]} ${style["button"]} mt-4 mb-4 ml-2`}>
           <ListIcon type="primary" />
-          <NavLink to={'/profile/orders'} className={({ isActive }) => isActive ? 'active' : ''} >
+          <NavLink to={'/feed'} className={({ isActive }) => isActive ? 'active' : ''} >
             <p className="text text_type_main-default ml-2">Лента заказов</p>
           </NavLink>
         </div>

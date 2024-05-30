@@ -5,12 +5,13 @@ import style from './profile-page.module.css';
 
 export function ProfilePage() {
     return (<>
-        <section className={`${style['section-wrapper']}`} >
+        <section className={`${style['section-wrapper']} pt-6`} >
             <div className={`${style['block']}`} >
                 <ProfileNavigation />
-                <main className={style['profile-body']} >
+                {/* <main className={style['profile-body']} >
                     <Outlet />
-                </main>
+                </main> */}
+                <Outlet />
             </div>
         </section >
     </>);

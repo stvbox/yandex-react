@@ -1,21 +1,19 @@
 .window {
-    align-items: center;
-    flex-direction: column;
-    display: flex;
-    background: #1c1c21;
-    border-radius: 40px;
-    padding: 40px;
-    z-index: 9999;
-    box-sizing: border-box;
-    max-width: 90%;
-  }
-  
-  .title {
-    flex: 1 1 100%;
-    white-space: normal;
-  }
-  
+  align-items: center;
+  flex-direction: column;
+  display: flex;
+  background: #1c1c21;
+  border-radius: 40px;
+  padding: 40px;
+  z-index: 9999;
+  box-sizing: border-box;
+  max-width: 90%;
+  max-height: 90%;
+  overflow: hidden;
+  /* border: 1px red solid; */
+
   .header {
+    flex: 1 1 1px;
     display: flex;
     flex-direction: row;
     line-height: 40px;
@@ -23,10 +21,22 @@
     align-items: flex-start;
     white-space: nowrap;
     align-self: stretch;
+
+    .title {
+      flex: 1 1 100%;
+      white-space: normal;
+    }
+
+    .close {
+      flex: 1 1 0px;
+      cursor: pointer;
+    }
   }
-  
-  .close {
-    flex: 1 1 0px;
-    cursor: pointer;
+
+  .content {
+    flex: 1 1 100%;
+    display: flex;
+    /* border: 1px blue solid; */
+    overflow: hidden;
   }
-  
+}

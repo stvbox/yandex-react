@@ -1,7 +1,6 @@
 import { IMenuItem } from "../../../utils/data.type";
 import { useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
-import PropTypes from "prop-types";
 import style from "./ingridient-details.module.css";
 import { FC } from "react";
 import { RootState } from "../../..";
@@ -49,7 +48,7 @@ export const IngredientDetailsInner: FC<IInnerCompParams> = ({ ingridient }) => 
     return (<></>);
   }
 
-  return (<>
+  return (<div>
     <img
       src={ingridient.image}
       className={style.image}
@@ -76,7 +75,7 @@ export const IngredientDetailsInner: FC<IInnerCompParams> = ({ ingridient }) => 
         </p>
       </div>
     </div>
-  </>);
+  </div>);
 }
 
 // IngredientDetails.propTypes = {

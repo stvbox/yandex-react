@@ -43,7 +43,7 @@ export function LoginPage() {
     ];
 
     const buttonFormHandler = useCallback(() => {
-        dispatch(authUser({ email, password })).then(result => {
+        dispatch(authUser({ email, password }))?.then(result => {
             return result as PayloadAction<FetchResponse<IAuthResult>>;
         }).then(result => {
             console.log('dispatchResult(result):', result);

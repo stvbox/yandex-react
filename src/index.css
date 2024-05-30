@@ -46,8 +46,10 @@ body {
 
 main {
   display: flex;
+  flex: 1 1 100%;
   justify-content: center;
   overflow: hidden;
+  width: 1288px;
 }
 
 .section-wrapper {
@@ -56,10 +58,12 @@ main {
   flex-direction: column;
   overflow: hidden;
   box-sizing: border-box;
+  min-width: 601px;
 }
 
 .scroll-box {
-  overflow-y: scroll;
+  /* overflow-y: scroll; */
+  overflow-y: auto;
   scrollbar-width: thin;
   scrollbar-color: #8585ad #2f2f37;
 }

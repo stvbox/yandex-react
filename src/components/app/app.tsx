@@ -1,4 +1,4 @@
-import { useCallback, useEffect } from "react";
+import { useEffect } from "react";
 import { Routes, Route, useLocation } from "react-router-dom";
 import { AppHeader } from "../app-header/app-header";
 import { ConstructorPage, LoginPage, RegisterPage, ForgotPage, ResetPage, ProfilePage, NotFound404 } from "../../pages";
@@ -9,18 +9,24 @@ import { ProfileForm } from "../profile-form/profile-form";
 import { ProtectedRoute } from "../protected-route/protected-route";
 import { BurgerIngredientsCategoryItemModal } from "../burger-ingredients/burger-ingredients-catogory/category-item-modal/category-item-modal";
 import { RootState, useAppDispatch } from "../..";
-import { ingredientsActions, loadIngridients } from "../../services/reducers/ingredients";
+import { loadIngridients } from "../../services/reducers/ingredients";
+import { getUserInfo } from "../../services/actions/auth";
+import { FeedPage } from "../../pages/feed-page";
+import { FeedDetailsPage } from "../../pages/feed-details-page";
+import { OrderActions } from "../../services/reducers/orders.types";
+import { OrderDetailsPage } from "../../pages/order-details-page";
+import { OrderDetailsModal } from "../order-details-modal/order-details-modal";
 import logo from "../../logo.svg";
 import style from "./app.module.css";
-import { IngridientsActions } from "../../services/reducers/ingredients.types";
-import { getUserInfo } from "../../services/actions/auth";
 
 function App() {
   //const dispatch = useDispatch();
   const dispatch = useAppDispatch();
   const location = useLocation();
   const background = location.state?.background;
+
   const ingridientId: string = location.state?.ingridientId;
+  const orderNumber: string = location.state?.orderNumber;
 
   const { waitUserInfo, ingridients, error } = useSelector((store: RootState) => ({
     ingridients: store.ingredients.items,
@@ -66,11 +72,14 @@ function App() {
           <Route index element={<ProfileForm />} />
           {/* /profile/orders — страница списка заказов. */}
           <Route path="orders" element={<OrdersPage />} />
-
+          <Route path="orders/:orderNumber" element={<ProtectedRoute element={<OrderDetailsPage />} ifNotAuth={<LoginPage />} />} />
         </Route>
 
         {/* /ingredients/:id — страница ингредиента. (ЧИТ по рекомендации наставника!) */}
         <Route path="/ingredients/:id" element={<IngredientDetails />} />
+
+        <Route path="/feed" element={<FeedPage />} />
+        <Route path="/feed/:orderNumber" element={<FeedDetailsPage />} />
 
         <Route path="*" element={<NotFound404 />} />
       </Routes>
@@ -79,6 +88,8 @@ function App() {
       {background && ( // Итолько сейчас я понял, что это просто дополниетельная точка реакции на маршрут...
         <Routes>
           <Route path="/ingredients/:id" element={<BurgerIngredientsCategoryItemModal ingredientId={ingridientId} />} />
+          <Route path="/profile/orders/:orderNumber" element={<OrderDetailsModal orderNumber={orderNumber} />} />
+          <Route path="/feed/:orderNumber" element={<OrderDetailsModal orderNumber={orderNumber} />} />
         </Routes>
       )}
     </div>

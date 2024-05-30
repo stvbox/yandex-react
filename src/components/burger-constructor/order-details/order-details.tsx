@@ -5,12 +5,12 @@ import { FC } from "react";
 
 
 interface ICompProps {
-  orderNumber: number;
   thingName: string;
+  orderNumber: number;
 }
 
 export const OrderDetails: FC<ICompProps> = ({ orderNumber, thingName }) => {
-  return (<>
+  return (<div>
     <p className={`text text_type_digits-large ${style.number}`}>{orderNumber}</p>
     <p className="text text_type_main-medium mt-8">идентификатор заказа</p>
     <img src={checkout} className={`p-15 ${style.checkout}`} alt={thingName} />
@@ -18,7 +18,7 @@ export const OrderDetails: FC<ICompProps> = ({ orderNumber, thingName }) => {
     <p className="text text_type_main-default text_color_inactive pt-2 pb-20">
       Дождитесь готовности на орбитальной станции
     </p>
-  </>);
+  </div>);
 }
 
 // OrderDetails.propTypes = {

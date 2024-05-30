@@ -1,0 +1,21 @@
+{
+    "success": true,
+    "orders": [
+        {
+            "_id": "6654b3a097ede0001d06c9c5",
+            "ingredients": [
+                "643d69a5c3f7b9001cfa093d",
+                "643d69a5c3f7b9001cfa093e",
+                "643d69a5c3f7b9001cfa0947",
+                "643d69a5c3f7b9001cfa093d"
+            ],
+            "status": "done",
+            "name": "Флюоресцентный фалленианский люминесцентный бургер",
+            "createdAt": "2024-05-27T16:24:00.090Z",
+            "updatedAt": "2024-05-27T16:24:00.500Z",
+            "number": 41001
+        }
+    ],
+    "total": 40627,
+    "totalToday": 57
+}

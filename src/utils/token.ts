@@ -55,7 +55,13 @@ export const _refreshToken = (): Promise<Response> => {
     });
 };
 
-export function fetchWithRefresh<T>(url: string, options: IFetchOptions): Promise<FetchResponse<T>> {
+export function fetchWithRefresh<T>(_url: string, options: IFetchOptions): Promise<FetchResponse<T>> {
+
+    const url = _url.replace('${accessToken}', getAccessToken())
+        .replace('Bearer ', '');
+
+    //console.log('url: ', url);
+
     const returnThing = fetch(url, {
         ...options, timeout: 6000
     } as RequestInit).then(async (response) => {

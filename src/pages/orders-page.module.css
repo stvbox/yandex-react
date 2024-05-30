@@ -1,0 +1,33 @@
+
+
+.orders-wrapper {
+    flex: 1 1 100%;
+    /* border: 3px red solid; */
+    box-sizing: content-box;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+
+    .orders-wrapper-title {
+        flex: 1 1 1px;
+    }
+
+    .orders-wrapper-content {
+        display: flex;
+        flex: 0 1 100%;
+        /* border: 4px seagreen solid; */
+        box-sizing: content-box;
+        overflow: hidden;
+    }
+}
+
+.orders-wrapper-content-inner {
+    /* flex: 1 1 100%; */
+    border: 4px blue solid;
+    box-sizing: content-box;
+}
+
+.orders-wrapper-content-footer {
+    /* border: 4px purple solid; */
+    flex: 1 1 1px;
+}

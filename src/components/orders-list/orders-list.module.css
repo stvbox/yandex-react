@@ -1,0 +1,121 @@
+.component-wrapper {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex: 1 1 100%;
+    /* border: 3px purple solid; */
+    overflow: hidden;
+    max-height: 100%;
+    max-width: 100%;
+    position: relative;
+}
+
+/*.component-wrapper-col {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    flex: 0 0 100%;
+    border: 3px blue solid;
+    max-height: 100%;
+    overflow: hidden;
+} */
+
+.orders-items {
+    max-height: 100%;
+    max-width: 100%;
+    display: flex;
+    flex-direction: column;
+    /* border-color: 1px red solid; */
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+.feed-item {
+    background-color: #1C1C21;
+    border-radius: 40px;
+    cursor: pointer;
+}
+
+.number-date-row {
+    display: flex;
+
+    .number-block {
+        flex: 1 1 1px;
+    }
+
+    .time-block {
+        flex: 1 1 100%;
+        text-align: end;
+    }
+}
+
+.order-sum-row {
+    display: flex;
+    flex-direction: row;
+    /* border: 1px white solid; */
+
+    .order-sum-value {
+        flex: 1 1 100%;
+        display: flex;
+        flex-direction: row;
+        align-content: flex-start;
+        justify-content: flex-end;
+        align-items: center;
+        /* border: 1px green solid; */
+    }
+}
+
+.ingredients-block {
+    display: flex;
+    flex-direction: row-reverse;
+    /* border: 1px yellow solid; */
+
+    .ingredients-block-item-wrapper {
+        width: 50px;
+        height: 64px;
+        overflow: visible;
+
+        .ingredients-block-item-border {
+            width: 64px;
+            height: 64px;
+            background: linear-gradient(#801ab2, #4c4cff);
+            border-radius: 100px;
+            position: relative;
+
+            .ingredients-block-item {
+                width: 60px;
+                height: 60px;
+                background: black;
+                border-radius: 98px;
+                overflow: hidden;
+                top: 2px;
+                left: 2px;
+                display: flex;
+                align-items: center;
+                flex-direction: column;
+                justify-content: center;
+                position: relative;
+
+                img {
+                    width: 100px;
+                }
+
+                .ingredients-block-item-count {
+                    width: 100%;
+                    height: 100%;
+                    display: block;
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                    display: flex;
+                    align-items: center;
+                    flex: 0 0 100%;
+                    justify-content: center;
+                    background-color: rgba(0, 0, 0, 0.6);
+                }
+            }
+        }
+    }
+}

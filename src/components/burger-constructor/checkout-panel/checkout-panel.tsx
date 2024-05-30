@@ -90,6 +90,7 @@ export function CheckoutPanel() {
                 <OrderDetails
                     orderNumber={checkoutResponse?.data?.order?.number}
                     thingName={checkoutResponse?.data?.name}
+                    
                 />
             </Modal>
         )}

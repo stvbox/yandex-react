@@ -1,0 +1,45 @@
+.dashboard-wrapper {
+    display: flex;
+    flex-direction: column;
+}
+
+.statuses-wrapper {
+    display: flex;
+
+    * {
+        /* border: 1px white solid; */
+    }
+
+    .ready-block {
+        flex: 1 1 1px;
+        max-height: 200px;
+
+        .numbers {
+            color: #00CCCC;
+        }
+    }
+
+    .div-block {
+        flex: 0 0 36px;
+    }
+
+    .proced-block {
+        flex: 1 1 1px;
+        max-height: 200px;
+    }
+
+    .numbers {
+        max-height: 200px;
+        display: flex;
+        justify-content: space-evenly;
+
+        .slice {
+            display: flex;
+            flex-direction: column;
+        }
+    }
+}
+
+.total-numbers {
+    font-size: 144px;
+}
