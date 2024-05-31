@@ -1,4 +1,4 @@
-import { FC } from "react";
+import { FC, useMemo } from "react";
 import { RootState, useAppSelector } from "../..";
 import style from "./orders-dashboard.module.css";
 
@@ -46,10 +46,10 @@ export const OrdersDashboard: FC<ICompProps> = () => {
                         Готовые:
                     </p>
                     <div className={`${style['numbers']}`} >
-                        {doneSlices.map(slice => {
-                            return (<div className={`${style['slice']}`} >
+                        {doneSlices.map((slice, column) => {
+                            return (<div className={`${style['slice']}`} key={column} >
                                 {slice.map(number => {
-                                    return number ? (<p className="text text_type_digits-default mb-2">
+                                    return number ? (<p key={`${column}-${number}`} className="text text_type_digits-default mb-2">
                                         {number}
                                     </p>) : (<></>);
                                 })}
@@ -63,10 +63,10 @@ export const OrdersDashboard: FC<ICompProps> = () => {
                         В работе:
                     </p>
                     <div className={`${style['numbers']}`}>
-                        {pendingSlices.map(slice => {
-                            return (<div className={`${style['slice']}`} >
+                        {pendingSlices.map((slice, column) => {
+                            return (<div className={`${style['slice']}`} key={column}>
                                 {slice.map(number => {
-                                    return number ? (<p className="text text_type_digits-default mb-2">
+                                    return number ? (<p key={`${column}-${number}`} className="text text_type_digits-default mb-2">
                                         {number}
                                     </p>) : (<></>);
                                 })}
