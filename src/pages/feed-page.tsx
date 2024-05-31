@@ -1,13 +1,10 @@
 import { FC, useEffect } from "react";
-import { useSelector } from "react-redux";
-import { RootState, useAppDispatch } from "..";
+import { RootState, useAppDispatch, useAppSelector } from "..";
 import { IMenuItem } from "../utils/data.type";
-import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import { OrdersDashboard } from "../components/orders-dashboard/orders-dashboard";
-import { useNavigate } from "react-router-dom";
 import { OrdersList, OrdersListMode } from "../components/orders-list/orders-list";
-import style from "./feed-page.module.css";
 import { OrderActions } from "../services/reducers/orders.types";
+import style from "./feed-page.module.css";
 
 
 interface ICompProps {
@@ -24,7 +21,7 @@ type IOrderTotals = { [index: string]: number };
 export const FeedPage: FC<ICompProps> = () => {
     const dispatch = useAppDispatch();
 
-    const { orders, ingredients, wsFeedError } = useSelector((store: RootState) => ({
+    const { orders, ingredients, wsFeedError } = useAppSelector((store: RootState) => ({
         ingredients: store.ingredients.items,
         orders: store.orders.feed,
         wsFeedError: store.orders.wsFeedError,

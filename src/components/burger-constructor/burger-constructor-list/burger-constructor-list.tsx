@@ -1,14 +1,13 @@
 import { useMemo } from "react";
-import { useSelector } from "react-redux";
 import { IngredientsListCenter } from "./ingredients-list-center/ingredients-list-center";
 import { BunComponent } from "./bun-component/bun-component";
-import { RootState } from "../../..";
+import { RootState, useAppSelector } from "../../..";
 import style from "./burger-constructor-list.module.css";
 
 
 export function BurgerConstructorList() {
 
-  const { constructorState, ingridients, bun } = useSelector((store: RootState) => ({
+  const { constructorState, ingridients, bun } = useAppSelector((store: RootState) => ({
     ingridients: store.ingredients.items,
     categories: store.ingredients.categories,
     constructorState: store.constructer,

@@ -1,6 +1,5 @@
 import { FC } from "react";
-import { useSelector } from "react-redux";
-import { RootState } from "../..";
+import { RootState, useAppSelector } from "../..";
 import style from "./orders-dashboard.module.css";
 
 
@@ -12,7 +11,7 @@ type IStatusCounters = { [index: string]: string[] }
 
 export const OrdersDashboard: FC<ICompProps> = () => {
 
-    const { totalToday, orders, total } = useSelector((store: RootState) => ({
+    const { totalToday, orders, total } = useAppSelector((store: RootState) => ({
         totalToday: store.orders.totalToday,
         orders: store.orders.feed,
         total: store.orders.total,

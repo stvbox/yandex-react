@@ -1,7 +1,6 @@
 import { FC, ReactNode } from "react";
-import { useSelector } from "react-redux";
 import { Navigate } from "react-router-dom";
-import { RootState } from "../..";
+import { RootState, useAppSelector } from "../..";
 
 interface ICmpProps {
     element: ReactNode;
@@ -11,7 +10,7 @@ interface ICmpProps {
 
 export const ProtectedRoute: FC<ICmpProps> = ({ element, ifAuth, ifNotAuth }) => {
 
-    const { email } = useSelector((store: RootState) => ({
+    const { email } = useAppSelector((store: RootState) => ({
         email: store.auth.email,
     }));
 

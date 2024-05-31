@@ -1,11 +1,10 @@
 import { useCallback, useMemo } from "react";
-import { useSelector } from "react-redux";
 import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import { useNavigate } from "react-router-dom";
 import { Modal } from "../../modal/modal";
 import { OrderDetails } from "../order-details/order-details";
 import { CheckoutButton } from "./checkout-button/checkout-button";
-import { RootState, useAppDispatch } from "../../..";
+import { RootState, useAppDispatch, useAppSelector } from "../../..";
 import { ConstructorActions, constructorActions } from "../../../services/reducers/constructor";
 import { ordersActions } from "../../../services/reducers/orders";
 import { OrderActions } from "../../../services/reducers/orders.types";
@@ -17,7 +16,14 @@ export function CheckoutPanel() {
     const navigate = useNavigate();
     const dispatch = useAppDispatch();
 
-    const { bun, burgerSet, ingredients, checkoutResponse, isLoading, userEmail } = useSelector((store: RootState) => ({
+    const {
+        bun,
+        burgerSet,
+        ingredients,
+        checkoutResponse,
+        isLoading,
+        userEmail
+    } = useAppSelector((store: RootState) => ({
         bun: store.constructer.bun,
         burgerSet: store.constructer.burgerSet,
         ingredients: store.ingredients.items,
@@ -55,7 +61,7 @@ export function CheckoutPanel() {
             return;
         }
 
-        navigate('/login', { state: { goBack: true } });
+        navigate('/login', { state: { goBack: '/' } });
     }, [burgerSet]);
 
     const closeHandler = useCallback(() => {
@@ -90,7 +96,7 @@ export function CheckoutPanel() {
                 <OrderDetails
                     orderNumber={checkoutResponse?.data?.order?.number}
                     thingName={checkoutResponse?.data?.name}
-                    
+
                 />
             </Modal>
         )}

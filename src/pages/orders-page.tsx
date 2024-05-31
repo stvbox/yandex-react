@@ -1,9 +1,8 @@
 import { FC, useEffect } from "react";
 import { OrdersList, OrdersListMode } from "../components/orders-list/orders-list";
 import style from './orders-page.module.css';
-import { RootState, useAppDispatch } from "..";
+import { RootState, useAppDispatch, useAppSelector } from "..";
 import { OrderActions } from "../services/reducers/orders.types";
-import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
 
@@ -17,7 +16,7 @@ export const OrdersPage: FC<ICompParams> = () => {
     const navigate = useNavigate();
     const dispatch = useAppDispatch();
 
-    const { orders, ingredients, wsOrdersError } = useSelector((store: RootState) => ({
+    const { orders, ingredients, wsOrdersError } = useAppSelector((store: RootState) => ({
         ingredients: store.ingredients.items,
         orders: store.orders.orders,
         wsOrdersError: store.orders.wsOrdersError,

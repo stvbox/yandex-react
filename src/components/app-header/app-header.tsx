@@ -1,4 +1,3 @@
-import { useSelector } from "react-redux";
 import {
   Logo,
   BurgerIcon,
@@ -6,12 +5,12 @@ import {
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import style from "./app-header.module.css";
 import { NavLink } from "react-router-dom";
-import { RootState } from "../..";
+import { RootState, useAppSelector } from "../..";
 
 export function AppHeader() {
   //const navigate = useNavigate();
 
-  const { name } = useSelector((store: RootState) => ({
+  const { name } = useAppSelector((store: RootState) => ({
     name: store.auth.name,
   }));
 

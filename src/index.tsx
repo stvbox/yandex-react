@@ -4,7 +4,7 @@ import { App } from "./components/app/app";
 import { BrowserRouter } from "react-router-dom";
 import { HTML5Backend } from "react-dnd-html5-backend";
 import { DndProvider } from "react-dnd";
-import { Provider, useDispatch } from "react-redux";
+import { Provider, useDispatch, useSelector } from "react-redux";
 import reportWebVitals from "./reportWebVitals";
 import { compose } from 'redux';
 import { authReducer } from "./services/reducers/auth";
@@ -92,14 +92,15 @@ export const store = configureStore({
   }
 });
 
-export type RootState = ReturnType<typeof store.getState>
-export type AppDispatch = typeof store.dispatch
-export const useAppDispatch = useDispatch.withTypes<AppDispatch>()
+export type RootState = ReturnType<typeof store.getState>;
+export type AppDispatch = typeof store.dispatch;
+export const useAppDispatch = useDispatch.withTypes<AppDispatch>();
+export const useAppSelector = useSelector.withTypes<RootState>();
 
 const rootElement = document.getElementById("root");
 if (rootElement) {
   ReactDOM.createRoot(rootElement).render(
-    <React.StrictMode>
+    // <React.StrictMode>
       <Provider store={store}>
         <BrowserRouter>
           <DndProvider backend={HTML5Backend}>
@@ -107,7 +108,7 @@ if (rootElement) {
           </DndProvider>
         </BrowserRouter>
       </Provider>
-    </React.StrictMode>
+    // </React.StrictMode>
   );
 }
 

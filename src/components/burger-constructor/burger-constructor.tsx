@@ -1,13 +1,11 @@
 import { BurgerConstructorList } from "./burger-constructor-list/burger-constructor-list";
 import { CheckoutPanel } from "./checkout-panel/checkout-panel";
 import { useDrop } from "react-dnd";
-import { useDispatch } from "react-redux";
 import uuid4 from "uuid4";
-import { useSelector } from "react-redux";
-import style from './burger-constructor.module.css';
 import { IMenuItem } from "../../utils/data.type";
-import { RootState } from "../..";
+import { RootState, useAppDispatch, useAppSelector } from "../..";
 import { ConstructorActions, constructorActions } from "../../services/reducers/constructor";
+import style from './burger-constructor.module.css';
 
 
 export interface DragObj {
@@ -16,10 +14,10 @@ export interface DragObj {
 }
 
 export function BurgerConstructor() {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   // const ref = useRef(null);
 
-  const { bun, burgerSet } = useSelector((store: RootState) => ({
+  const { bun, burgerSet } = useAppSelector((store: RootState) => ({
     burgerSet: store.constructer.burgerSet,
     bun: store.constructer.bun,
   }));

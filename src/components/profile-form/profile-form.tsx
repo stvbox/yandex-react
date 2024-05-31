@@ -1,19 +1,18 @@
 import { Button } from '@ya.praktikum/react-developer-burger-ui-components';
 import { BurgersForm, IInputItem } from '../form/burger-form';
 import { useNavigate } from 'react-router-dom';
-import { SyntheticEvent, useCallback, useEffect, useMemo, useState } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 import { BurgerSpinner } from '../spinner/spinner';
-import { useSelector } from 'react-redux';
-import { RootState, useAppDispatch } from '../..';
-import style from './profile-form.module.css';
+import { RootState, useAppDispatch, useAppSelector } from '../..';
 import { updateUserInfo } from '../../services/actions/auth';
+import style from './profile-form.module.css';
+
 
 export function ProfileForm() {
     const dispatch = useAppDispatch();
     //const [wait, setWait] = useState(false);
 
     const navigate = useNavigate();
-    //const dispatch = useDispatch();
 
     useEffect(() => {
         if (!storeEmail) {
@@ -21,7 +20,7 @@ export function ProfileForm() {
         }
     });
 
-    const { storeName, storeEmail, wait } = useSelector((store: RootState) => ({
+    const { storeName, storeEmail, wait } = useAppSelector((store: RootState) => ({
         storeEmail: store.auth.email || '',
         storeName: store.auth.name || '',
         wait: store.auth.wait,

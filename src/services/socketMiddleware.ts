@@ -78,7 +78,8 @@ export const socketMiddleware = (_wsUrl: string, actions: IOrdersSocketActions):
 
                         _refreshToken().then(result => {
                             wsUrl = _wsUrl.replace(getAccessToken(), getAccessToken());
-                            dispatch({ type: OrderActions.WS_ORDERS_START });
+                            dispatch({ type: actions.WS_CONNECTION_CLOSE });
+                            dispatch({ type: actions.WS_CONNECTION_START });
                         });
 
                         dispatch(ordersActions[actions.WS_CONNECTION_ERROR](data.message));

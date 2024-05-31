@@ -1,11 +1,10 @@
 import { FC, useEffect } from "react";
-import { useSelector } from "react-redux";
 import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
-import { RootState, useAppDispatch } from "../..";
+import { RootState, useAppDispatch, useAppSelector } from "../..";
 import { IMenuItem } from "../../utils/data.type";
 import { OrderStatus } from "../orders-list/order-status/order-status";
-import style from "./order-details-history.module.css";
 import { fetchOrder } from "../../services/actions/orders";
+import style from "./order-details-history.module.css";
 
 
 type IIngredientsById = { [index: string]: IMenuItem };
@@ -19,7 +18,7 @@ interface ICompParams {
 export const OrderDetailsHistory: FC<ICompParams> = ({ orderNumber, isModal }) => {
     const dispatch = useAppDispatch();
 
-    const { orders, ingredients, feed } = useSelector((store: RootState) => ({
+    const { orders, ingredients, feed } = useAppSelector((store: RootState) => ({
         ingredients: store.ingredients.items,
         orders: store.orders.orders,
         feed: store.orders.feed,

@@ -1,4 +1,3 @@
-import { useDispatch } from "react-redux";
 import { useDrop, useDrag } from "react-dnd";
 import { FC, useCallback, useRef } from "react";
 import {
@@ -10,6 +9,7 @@ import { DragObj } from "../../../burger-constructor";
 import { IMenuItem } from "../../../../../utils/data.type";
 import { ConstructorActions, constructorActions } from "../../../../../services/reducers/constructor";
 import uuid4 from "uuid4";
+import { useAppDispatch } from "../../../../..";
 
 
 interface ICompProps {
@@ -18,7 +18,7 @@ interface ICompProps {
 }
 
 export const IngredientsListItem: FC<ICompProps> = ({ item, index }) => {
-    const dispatch = useDispatch();
+    const dispatch = useAppDispatch();
     const ref = useRef(null);
 
     const removeItem = useCallback((from: number) => {

@@ -1,9 +1,8 @@
 import { IMenuItem } from "../../../utils/data.type";
 import { useParams } from "react-router-dom";
-import { useSelector } from "react-redux";
-import style from "./ingridient-details.module.css";
 import { FC } from "react";
-import { RootState } from "../../..";
+import { RootState, useAppSelector } from "../../..";
+import style from "./ingridient-details.module.css";
 
 
 interface ICompProps {
@@ -14,7 +13,7 @@ interface ICompProps {
 export const IngredientDetails: FC<ICompProps> = ({ ingridient, isModal = false }) => {
   const params = useParams();
 
-  const { items } = useSelector((store: RootState) => ({
+  const { items } = useAppSelector((store: RootState) => ({
     items: store.ingredients.items
   }));
 

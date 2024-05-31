@@ -1,11 +1,11 @@
 import { useDrop } from "react-dnd";
 import { FC, useRef } from "react";
-import { useDispatch } from "react-redux";
 import { ConstructorElement } from "@ya.praktikum/react-developer-burger-ui-components";
 import { IMenuItem } from "../../../../utils/data.type";
 import { DragObj } from "../../burger-constructor";
 import { ConstructorActions, constructorActions } from "../../../../services/reducers/constructor";
 import uuid4 from "uuid4";
+import { useAppDispatch } from "../../../..";
 
 type TopOrButtom = "top" | "bottom";
 
@@ -21,7 +21,7 @@ export const TopBottomWords = {
 };
 
 export const BunComponent: FC<ICompProps> = ({ type, bunItem, insIndex }) => {
-    const dispatch = useDispatch();
+    const dispatch = useAppDispatch();
     const ref = useRef(null);
 
     const [{ isOver }, drop] = useDrop<DragObj, any, { isOver: boolean }>({
