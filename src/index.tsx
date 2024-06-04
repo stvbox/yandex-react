@@ -4,7 +4,7 @@ import { App } from "./components/app/app";
 import { BrowserRouter } from "react-router-dom";
 import { HTML5Backend } from "react-dnd-html5-backend";
 import { DndProvider } from "react-dnd";
-import { Provider, useDispatch } from "react-redux";
+import { Provider, useDispatch, useSelector } from "react-redux";
 import reportWebVitals from "./reportWebVitals";
 import { compose } from 'redux';
 import { authReducer } from "./services/reducers/auth";
@@ -12,7 +12,14 @@ import { ordersReducer } from "./services/reducers/orders";
 import { constructorReducer } from "./services/reducers/constructor";
 import { ingredientsReducer } from "./services/reducers/ingredients";
 import { configureStore } from "@reduxjs/toolkit";
+import { socketMiddleware } from "./services/socketMiddleware";
+import { IOrdersSocketActions } from "./services/socketMiddleware";
 import "./index.css";
+import { OrderActions } from "./services/reducers/orders.types";
+
+
+const FEED_WS_URL = 'wss://norma.nomoreparties.space/orders/all';
+const ORDERS_WS_URL = 'wss://norma.nomoreparties.space/orders?token=${accessToken}';
 
 declare global {
   interface Window {
@@ -54,7 +61,29 @@ declare global {
 //   ),
 // );
 
+const feedActions: IOrdersSocketActions = {
+  WS_CONNECTION_START: OrderActions.WS_FEED_START,
+  WS_CONNECTION_CLOSE: OrderActions.WS_FEED_CLOSED,
+  WS_CONNECTION_SUCCESS: OrderActions.WS_FEED_SUCCESS,
+  WS_CONNECTION_ERROR: OrderActions.WS_FEED_ERROR,
+  WS_GET_MESSAGE: OrderActions.WS_FEED_MESSAGE,
+  WS_SEND_MESSAGE: OrderActions.WS_FEED_SEND_MESSAGE,
+};
+const orderActions: IOrdersSocketActions = {
+  WS_CONNECTION_START: OrderActions.WS_ORDERS_START,
+  WS_CONNECTION_CLOSE: OrderActions.WS_ORDERS_CLOSED,
+  WS_CONNECTION_SUCCESS: OrderActions.WS_ORDERS_SUCCESS,
+  WS_CONNECTION_ERROR: OrderActions.WS_ORDERS_ERROR,
+  WS_GET_MESSAGE: OrderActions.WS_ORDERS_MESSAGE,
+  WS_SEND_MESSAGE: OrderActions.WS_ORDERS_SEND_MESSAGE
+};
+
 export const store = configureStore({
+  middleware: (getDefaultMiddleware) => {
+    return getDefaultMiddleware()
+      .prepend(socketMiddleware(FEED_WS_URL, feedActions))
+      .prepend(socketMiddleware(ORDERS_WS_URL, orderActions));
+  },
   reducer: {
     constructer: constructorReducer,
     ingredients: ingredientsReducer,
@@ -63,14 +92,15 @@ export const store = configureStore({
   }
 });
 
-export type RootState = ReturnType<typeof store.getState>
-export type AppDispatch = typeof store.dispatch
-export const useAppDispatch = useDispatch.withTypes<AppDispatch>()
+export type RootState = ReturnType<typeof store.getState>;
+export type AppDispatch = typeof store.dispatch;
+export const useAppDispatch = useDispatch.withTypes<AppDispatch>();
+export const useAppSelector = useSelector.withTypes<RootState>();
 
 const rootElement = document.getElementById("root");
 if (rootElement) {
   ReactDOM.createRoot(rootElement).render(
-    <React.StrictMode>
+    // <React.StrictMode>
       <Provider store={store}>
         <BrowserRouter>
           <DndProvider backend={HTML5Backend}>
@@ -78,7 +108,7 @@ if (rootElement) {
           </DndProvider>
         </BrowserRouter>
       </Provider>
-    </React.StrictMode>
+    // </React.StrictMode>
   );
 }
 

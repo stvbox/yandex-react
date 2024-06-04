@@ -1,15 +1,14 @@
 import { RefObject, createRef } from "react";
 import { BurgerIngredientsCategory } from "./burger-ingredients-catogory/burger-ingredients-catogory";
 import { Tabs } from "./tabs/tabs";
-import { useSelector } from "react-redux";
 import { useState } from "react";
 import { useMemo } from "react";
 import { IngridientsTypes } from "../../utils/data.type";
-import { RootState } from "../..";
+import { RootState, useAppSelector } from "../..";
+
 
 // import { createBrowserHistory } from "history";
 // export const ingridientsHistory = createBrowserHistory();
-
 
 type HedersType = {
   [key in IngridientsTypes as string]: {
@@ -37,7 +36,7 @@ export function BurgerIngredients() {
     return createRef();
   }, []);
 
-  const { categories } = useSelector((store: RootState) => ({
+  const { categories } = useAppSelector((store: RootState) => ({
     categories: store.ingredients.categories,
   }));
 

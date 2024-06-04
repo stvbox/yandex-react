@@ -1,4 +1,3 @@
-import { useSelector } from "react-redux";
 import {
   Logo,
   BurgerIcon,
@@ -6,12 +5,12 @@ import {
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import style from "./app-header.module.css";
 import { NavLink } from "react-router-dom";
-import { RootState } from "../..";
+import { RootState, useAppSelector } from "../..";
 
 export function AppHeader() {
   //const navigate = useNavigate();
 
-  const { name } = useSelector((store: RootState) => ({
+  const { name } = useAppSelector((store: RootState) => ({
     name: store.auth.name,
   }));
 
@@ -26,7 +25,7 @@ export function AppHeader() {
         </div>
         <div className={`${style["line"]} ${style["button"]} mt-4 mb-4 ml-2`}>
           <ListIcon type="primary" />
-          <NavLink to={'/profile/orders'} className={({ isActive }) => isActive ? 'active' : ''} >
+          <NavLink to={'/feed'} className={({ isActive }) => isActive ? 'active' : ''} >
             <p className="text text_type_main-default ml-2">Лента заказов</p>
           </NavLink>
         </div>

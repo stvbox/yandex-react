@@ -1,10 +1,8 @@
 import { IMenuItem } from "../../../utils/data.type";
 import { FC, useMemo } from "react";
-import { useSelector } from "react-redux";
 import { BurgerIngredientsCategoryItem } from "./category-item/category-item";
-import PropTypes from "prop-types";
+import { RootState, useAppSelector } from "../../..";
 import style from "./burger-ingredients-catogory.module.css";
-import { RootState } from "../../..";
 
 
 interface ICompProps {
@@ -14,7 +12,7 @@ interface ICompProps {
 
 export const BurgerIngredientsCategory: FC<ICompProps> = ({ title, items }) => {
 
-  const { selectedIds, bunId } = useSelector((store: RootState) => ({
+  const { selectedIds, bunId } = useAppSelector((store: RootState) => ({
     selectedIds: store.constructer.burgerSet,
     bunId: store.constructer.bun,
   }));

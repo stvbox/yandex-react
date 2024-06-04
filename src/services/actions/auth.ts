@@ -1,5 +1,8 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import { IAuthResult, IAuthUser, IChangePasswordParams, IChangePasswordResult, ILoadUserInfoResult, ILogingResult, IRegisterUserParams, IResetPasswordParams } from "../reducers/auth.types";
+import {
+    IAuthResult, IAuthUser, IChangePasswordParams, IChangePasswordResult,
+    ILoadUserInfoResult, ILogingResult, IRegisterUserParams, IResetPasswordParams
+} from "../reducers/auth.types";
 import { fetchWithRefresh, getRefreshToken, storeTokens } from "../../utils/token";
 import { BASE_URL } from "../../utils/constants";
 import { getHeaders } from "../../utils/requests";
@@ -71,16 +74,17 @@ export const getUserInfo = createAsyncThunk('user/info', () => {
     });
 });
 
-export const authUser = createAsyncThunk('user/auth', (params: IAuthUser) => {
+export const authUser = createAsyncThunk('user/auth', async (params: IAuthUser, thunkAPI) => {
     const { email, password } = params;
     return fetchWithRefresh<IAuthResult>(AUTH_LOGIN_URL, {
         method: "POST",
         headers: getHeaders(),
         body: JSON.stringify({ email, password }),
-    }).then(response => {
+    }).then((response) => {
         console.log('authUser(response):', response);
 
         if (!response.json.success) {
+            console.error('error', response);
             throw response.json.message;
         }
 
@@ -88,6 +92,8 @@ export const authUser = createAsyncThunk('user/auth', (params: IAuthUser) => {
             accessToken: response.json.accessToken,
             refreshToken: response.json.refreshToken,
         });
+
+        //thunkAPI.fulfillWithValue(response);
         return response;
     });
 });

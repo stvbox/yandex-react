@@ -1,0 +1,84 @@
+.order-detail-wrapper {
+    flex: 1 1 100%;
+    /* border: 1px red solid; */
+    display: flex;
+    flex-direction: column;
+    width: 620px;
+}
+
+.number-block {
+    display: flex;
+    justify-content: center;
+}
+
+.status-block {
+    color: #00CCCC;
+}
+
+.ingredients-wrapper {
+    flex: 1 1 80%;
+    /* border: 1px purple solid; */
+}
+
+.bbottom-pusher {
+    flex: 2 1 90%;
+}
+
+.ingredient-wrapper {
+    display: flex;
+
+    .ingredient-name-wrapper {
+        flex: 1 1 100%;
+        display: flex;
+        align-items: center;
+    }
+
+    .ingredient-total-wrapper {
+        flex: 1 1 1px;
+        display: flex;
+        white-space: nowrap;
+        align-items: center;
+    }
+}
+
+.ingredient-icon-border {
+    flex: 0 0 64px;
+    width: 64px;
+    height: 64px;
+    background: linear-gradient(#801ab2, #4c4cff);
+    border-radius: 100px;
+    position: relative;
+
+    .ingredient-icon-wrapper {
+        width: 60px;
+        height: 60px;
+        background: black;
+        border-radius: 98px;
+        overflow: hidden;
+        top: 2px;
+        left: 2px;
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+        justify-content: center;
+        position: relative;
+
+        img {
+            width: 100px;
+        }
+    }
+}
+
+.total-wrapper {
+    display: flex;
+
+    * {
+        flex: 1 1 100%;
+    }
+
+    .summ-wrapper {
+        display: flex;
+        flex: 1 1 1px;
+        white-space: nowrap;
+    }
+}

@@ -2,15 +2,13 @@ import { SyntheticEvent, useCallback, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { BurgersForm, IInputItem } from "../components/form/burger-form";
 import { BurgerSpinner } from "../components/spinner/spinner";
-//import { resetPassword } from "../utils/requests";
 import style from "./forgot-page.module.css";
-import { RootState, useAppDispatch } from "..";
-import { useSelector } from "react-redux";
+import { RootState, useAppDispatch, useAppSelector } from "..";
 import { resetPassword } from "../services/actions/auth";
 
 
 export function ForgotPage() {
-    const { wait } = useSelector((store: RootState) => ({
+    const { wait } = useAppSelector((store: RootState) => ({
         wait: store.auth.wait,
     }));
 

@@ -5,12 +5,8 @@ import {
     CurrencyIcon,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import { useDrag } from "react-dnd";
-// import { SET_INGRIDIENTS_ERROR, IngridientsActions } from "../../../../services/actions/ingridients";
-//import { ingridientsHistory } from "../../burger-ingredients";
 import { useNavigate } from "react-router-dom";
-import PropTypes from "prop-types";
 import style from "./catogory-item.module.css";
-import { useDispatch } from "react-redux";
 
 
 interface ICompParams {
@@ -21,7 +17,6 @@ interface ICompParams {
 
 export const BurgerIngredientsCategoryItem: FC<ICompParams> = ({ item, count, index }) => {
     const navigate = useNavigate();
-    const dispatch = useDispatch();
 
     const [collected, drag] = useDrag(() => ({
         type: 'toBurgerSet',

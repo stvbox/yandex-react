@@ -1,9 +1,8 @@
 import { useState, useCallback, useEffect, FC } from "react";
-import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { Modal } from "../../../modal/modal";
 import { IngredientDetails } from "../../ingridient-details/ingridient-details";
-import { RootState } from "../../../..";
+import { RootState, useAppSelector } from "../../../..";
 import { IMenuItem } from "../../../../utils/data.type";
 
 
@@ -15,7 +14,7 @@ export const BurgerIngredientsCategoryItemModal: FC<ICompParams> = ({ ingredient
     const navigate = useNavigate();
 
     const [currentItem, setCurrentItem] = useState<IMenuItem | null>(null);
-    const { ingredients } = useSelector((store: RootState) => ({
+    const { ingredients } = useAppSelector((store: RootState) => ({
         ingredients: store.ingredients.items,
     }));
 

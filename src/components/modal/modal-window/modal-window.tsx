@@ -1,7 +1,6 @@
 import { CloseIcon } from "@ya.praktikum/react-developer-burger-ui-components";
-import style from "./modal-window.module.css";
-import PropTypes from "prop-types";
 import { FC, MouseEventHandler, ReactNode, SyntheticEvent } from "react";
+import style from "./modal-window.module.css";
 
 
 interface IModalWindowProps {
@@ -23,7 +22,9 @@ export const ModalWindow: FC<IModalWindowProps> = ({ title, children, closeHandl
                     <CloseIcon type="primary" />
                 </div>
             </div>
-            {children}
+            <div className={style.content} >
+                {children}
+            </div>
         </div>
     );
 }

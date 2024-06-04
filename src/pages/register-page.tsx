@@ -3,8 +3,7 @@ import { Link } from "react-router-dom";
 import { BurgersForm, IInputItem } from "../components/form/burger-form";
 import { BurgerSpinner } from "../components/spinner/spinner";
 import style from "./register-page.module.css";
-import { useSelector } from "react-redux";
-import { RootState, useAppDispatch } from "..";
+import { RootState, useAppDispatch, useAppSelector } from "..";
 import { authActions } from "../services/reducers/auth";
 import { Modal } from "../components/modal/modal";
 import { AuthActions } from "../services/reducers/auth.types";
@@ -15,7 +14,7 @@ export function RegisterPage() {
 
     const dispatch = useAppDispatch();
 
-    const { wait, errorMessage } = useSelector((store: RootState) => ({
+    const { wait, errorMessage } = useAppSelector((store: RootState) => ({
         errorMessage: store.auth.errorMessage,
         wait: store.auth.wait,
     }));

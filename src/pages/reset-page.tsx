@@ -5,12 +5,11 @@ import { Link } from "react-router-dom";
 import { BurgersForm, IInputItem } from "../components/form/burger-form";
 //import { changePassword } from "../utils/requests";
 import style from "./reset-page.module.css";
-import { useSelector } from "react-redux";
-import { RootState } from "..";
+import { RootState, useAppSelector } from "..";
 
 
 export function ResetPage() {
-    const { wait } = useSelector((store: RootState) => ({
+    const { wait } = useAppSelector((store: RootState) => ({
         wait: store.auth.wait,
     }));
 
