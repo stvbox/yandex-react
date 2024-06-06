@@ -31,7 +31,7 @@ export const authSlice = createSlice({
         builder.addCase(changePassword.rejected, (state) => {
             state.wait = false;
         });
-        builder.addCase(changePassword.fulfilled, (state, action) => {
+        builder.addCase(changePassword.fulfilled, (state) => {
             state.wait = false;
         });
 
