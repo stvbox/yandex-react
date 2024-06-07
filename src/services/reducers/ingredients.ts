@@ -41,32 +41,32 @@ export const ingredientsSlice = createSlice({
     name: 'ingredients',
     initialState,
     reducers: {
-        [IngridientsActions.SET_INGRIDIENTS_ITEMS]: (state, action: PayloadAction<IMenuItem[]>) => {
-            state.items = action.payload;
-        },
-        [IngridientsActions.SET_INGRIDIENTS_CATEGORIES]: (state, action: PayloadAction<ICategories>) => {
-            state.categories = action.payload;
-        },
-        [IngridientsActions.SET_INGRIDIENTS_LOADING]: (state, action: PayloadAction<boolean>) => {
-            state.isLoading = action.payload;
-        },
-        [IngridientsActions.SET_INGRIDIENTS_ERROR]: (state, action: PayloadAction<string | null>) => {
-            state.error = action.payload;
-        },
+        // [IngridientsActions.SET_INGRIDIENTS_ITEMS]: (state, action: PayloadAction<IMenuItem[]>) => {
+        //     state.items = action.payload;
+        // },
+        // [IngridientsActions.SET_INGRIDIENTS_CATEGORIES]: (state, action: PayloadAction<ICategories>) => {
+        //     state.categories = action.payload;
+        // },
+        // [IngridientsActions.SET_INGRIDIENTS_LOADING]: (state, action: PayloadAction<boolean>) => {
+        //     state.isLoading = action.payload;
+        // },
+        // [IngridientsActions.SET_INGRIDIENTS_ERROR]: (state, action: PayloadAction<string | null>) => {
+        //     state.error = action.payload;
+        // },
     },
     extraReducers(builder) {
 
         // loadIngridients
         builder.addCase(loadIngridients.pending, (state, action) => {
-            console.log('loadIngridients.pending:', action);
+            // console.log('loadIngridients.pending:', action);
             state.isLoading = true;
         });
         builder.addCase(loadIngridients.rejected, (state, action) => {
-            console.log('loadIngridients.rejected:', action);
+            // console.log('loadIngridients.rejected:', action);
             state.isLoading = false;
         });
         builder.addCase(loadIngridients.fulfilled, (state, action) => {
-            console.log('loadIngridients.fulfilled:', action);
+            // console.log('loadIngridients.fulfilled:', action);
             state.items = action.payload?.json.data || [];
             state.categories = state.items.reduce((memo, item) => {
                 memo[item.type] = [...memo[item.type], item];

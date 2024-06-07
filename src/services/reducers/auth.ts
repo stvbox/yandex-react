@@ -43,7 +43,7 @@ export const authSlice = createSlice({
             state.wait = false;
         });
         builder.addCase(updateUserInfo.fulfilled, (state, action) => {
-            console.log('updateUserInfo.fulfilled: ', action);
+            //console.log('updateUserInfo.fulfilled: ', action);
             state.wait = false;
         });
 
@@ -52,12 +52,12 @@ export const authSlice = createSlice({
             state.wait = true;
         });
         builder.addCase(registerUser.rejected, (state, action) => {
-            console.log('registerUser.rejected: ', action);
+            //console.log('registerUser.rejected: ', action);
             state.errorMessage = String(action.error.message);
             state.wait = false;
         });
         builder.addCase(registerUser.fulfilled, (state, action) => {
-            console.log('registerUser.fulfilled: ', action);
+            //console.log('>>>>>>>>>>>>>>> registerUser.fulfilled: ', action);
             state.email = action.payload.json.user.email;
             state.name = action.payload.json.user.name;
             state.wait = false;
@@ -68,14 +68,14 @@ export const authSlice = createSlice({
             state.wait = true;
         });
         builder.addCase(authUser.rejected, (state, action) => {
-            console.log('authUser.rejected: ', action);
+            // console.log('authUser.rejected: ', action);
             state.errorMessage = String(action.error.message);
             state.email = null;
             state.name = null;
             state.wait = false;
         });
         builder.addCase(authUser.fulfilled, (state, action) => {
-            console.log('authUser.fulfilled: ', action);
+            // console.log('authUser.fulfilled: ', action);
             state.email = action.payload.json.user.email;
             state.name = action.payload.json.user.name;
             state.wait = false;
@@ -84,16 +84,16 @@ export const authSlice = createSlice({
         // getUserInfo
         builder.addCase(getUserInfo.pending, (state, action) => {
             state.wait = true;
-            console.log('getUserInfo.pending: ', action);
+            // console.log('getUserInfo.pending: ', action);
         });
         builder.addCase(getUserInfo.rejected, (state, action) => {
-            console.log('getUserInfo.fulfilled: ', action);
+            // console.log('getUserInfo.fulfilled: ', action);
             state.email = null;
             state.name = null;
             state.wait = false;
         });
         builder.addCase(getUserInfo.fulfilled, (state, action) => {
-            console.log('getUserInfo.fulfilled: ', action);
+            // console.log('getUserInfo.fulfilled: ', action);
             state.email = action.payload.json.user.email;
             state.name = action.payload.json.user.name;
             state.wait = false;
@@ -101,7 +101,7 @@ export const authSlice = createSlice({
 
         // logoutUserAction
         builder.addCase(logoutUser.fulfilled, (state) => {
-            console.log('logoutUserAction.fulfilled');
+            // console.log('logoutUserAction.fulfilled');
             state.email = null;
             state.name = null;
         });
