@@ -97,12 +97,15 @@ export type AppDispatch = typeof store.dispatch;
 export const useAppDispatch = useDispatch.withTypes<AppDispatch>();
 export const useAppSelector = useSelector.withTypes<RootState>();
 
+//const BASE_URL = '/yandex-react';
+const BASE_URL = '/';
+
 const rootElement = document.getElementById("root");
 if (rootElement) {
   ReactDOM.createRoot(rootElement).render(
     // <React.StrictMode>
       <Provider store={store}>
-        <BrowserRouter>
+        <BrowserRouter basename={BASE_URL} >
           <DndProvider backend={HTML5Backend}>
             <App />
           </DndProvider>

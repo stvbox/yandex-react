@@ -80,8 +80,13 @@ export function CheckoutPanel() {
     }, []);
 
     return (<>
-        <div className={`${style.footer} mt-10 mb-10 pr-4`}>
-            <p className={`text text_type_digits-medium ${style.price} mr-10`}>
+        <div
+            data-cy='checout-panel'
+            className={`${style.footer} mt-10 mb-10 pr-4`}
+        >
+            <p
+                data-cy='total-summ'
+                className={`text text_type_digits-medium ${style.price} mr-10`}>
                 {cast} &nbsp; <CurrencyIcon type="primary" />
             </p>
 

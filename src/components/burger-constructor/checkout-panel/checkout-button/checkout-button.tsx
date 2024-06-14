@@ -13,8 +13,10 @@ export const CheckoutButton: FC<ICompProps> = ({ isLoading, checkoutOrderHandler
         {isLoading
             ? <BurgerSpinner />
             : <Button
+                data-cy="checkout-button"
                 onClick={checkoutOrderHandler}
-                htmlType="button"
+                // htmlType="button"
+                htmlType="submit"
                 type="primary"
                 size="large"
             >Оформить заказ</Button>}

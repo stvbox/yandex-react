@@ -17,6 +17,7 @@ import { OrderDetailsModal } from "../order-details-modal/order-details-modal";
 import logo from "../../logo.svg";
 import style from "./app.module.css";
 
+
 function App() {
   const dispatch = useAppDispatch();
   const location = useLocation();

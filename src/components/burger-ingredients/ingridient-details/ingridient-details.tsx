@@ -53,7 +53,12 @@ export const IngredientDetailsInner: FC<IInnerCompParams> = ({ ingridient }) => 
       className={style.image}
       alt={ingridient.name}
     />
-    <p className="text text_type_main-medium mt-4">{ingridient.name}</p>
+    <p
+      data-cy="ingredient-details-name"
+      className="text text_type_main-medium mt-4"
+    >
+      {ingridient.name}
+    </p>
     <div className={`${style.reciept} text_color_inactive mt-8 mb-5`}>
       <div className={style.part}>
         <p className="text text_type_main-default">Калории,ккал</p>

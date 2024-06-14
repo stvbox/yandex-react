@@ -58,15 +58,21 @@ export const BunComponent: FC<ICompProps> = ({ type, bunItem, insIndex }) => {
 
     const dropRef = drop(ref);
 
-    return (bunItem && <div ref={dropRef as any} style={{ border }}>
-        <ConstructorElement
-            type={type}
-            isLocked={true}
-            text={`${bunItem.name}(${TopBottomWords[type]})`}
-            price={bunItem.price}
-            thumbnail={bunItem.image}
-        />
-    </div>);
+    return (bunItem &&
+        <div
+            data-cy={`constructor-item-${type}`}
+            ref={dropRef as any}
+            style={{ border }}
+        >
+            <ConstructorElement
+                type={type}
+                isLocked={true}
+                text={`${bunItem.name}(${TopBottomWords[type]})`}
+                price={bunItem.price}
+                thumbnail={bunItem.image}
+            />
+        </div>
+    );
 }
 
 // BunComponent.propTypes = {
