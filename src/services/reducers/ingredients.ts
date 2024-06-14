@@ -30,7 +30,7 @@ export const loadIngridients = createAsyncThunk('ingridients/load', () => {
     });
 });
 
-const initialState: IngredientsState = {
+export const initialState: IngredientsState = {
     isLoading: false,
     items: [],
     categories: { bun: [], main: [], sauce: [] },

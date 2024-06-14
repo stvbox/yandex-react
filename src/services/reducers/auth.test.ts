@@ -1,13 +1,13 @@
 import { authUser, changePassword, getUserInfo, logoutUser, registerUser, updateUserInfo } from "../actions/auth";
-import { authActions, authReducer } from "./auth";
+import { authActions, authReducer, initialState } from "./auth";
 import { AuthActions, IAuthState } from "./auth.types";
 
-const initialState: IAuthState = {
-    wait: false,
-    email: null,
-    name: null,
-    errorMessage: null
-}
+// const initialState: IAuthState = {
+//     wait: false,
+//     email: null,
+//     name: null,
+//     errorMessage: null
+// }
 
 const ERROR = 'error';
 

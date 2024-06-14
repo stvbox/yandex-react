@@ -3,7 +3,7 @@ import { IOrdersState, OrderActions, OrdersMessageWS } from "./orders.types";
 import { checkoutOrder, fetchOrder } from "../actions/orders";
 
 
-const initialState: IOrdersState = {
+export const initialState: IOrdersState = {
     wsFeedError: "",
     wsOrdersError: "",
     feed: [],

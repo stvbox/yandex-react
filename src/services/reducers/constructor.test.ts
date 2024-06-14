@@ -1,12 +1,12 @@
 import { IMenuItem, IngridientsTypes } from "../../utils/data.type";
-import { ConstructorActions, constructorActions, constructorReducer } from "./constructor";
+import { ConstructorActions, constructorActions, constructorReducer, initialState } from "./constructor";
 import { IConstructorState } from "./constructor.types";
 
 
-const initialState: IConstructorState = {
-    burgerSet: [],
-    bun: null,
-};
+// const initialState: IConstructorState = {
+//     burgerSet: [],
+//     bun: null,
+// };
 
 const STUB_ITEM: IMenuItem = {
     _id: "1",

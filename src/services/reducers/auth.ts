@@ -3,7 +3,7 @@ import { AuthActions, IAuthState } from "./auth.types";
 import { authUser, changePassword, getUserInfo, logoutUser, registerUser, updateUserInfo } from "../actions/auth";
 
 
-const initialState: IAuthState = {
+export const initialState: IAuthState = {
     wait: true,
     email: null,
     name: null,

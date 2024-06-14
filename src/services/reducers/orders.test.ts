@@ -1,21 +1,21 @@
 import { checkoutOrder, fetchOrder } from "../actions/orders";
-import { ordersActions, ordersReducer } from "./orders";
+import { initialState, ordersActions, ordersReducer } from "./orders";
 import { ICheckoutResult, IOrdersState, OrderActions, OrdersItem, OrdersMessageWS, OrdersStatuses } from "./orders.types";
 
 
-const initialState: IOrdersState = {
-    wsFeedError: "",
-    wsOrdersError: "",
-    feed: [],
-    orders: [],
-    total: 0,
-    totalToday: 0,
-    result: {
-        data: null,
-        error: null,
-    },
-    isWait: false,
-}
+// export const initialState: IOrdersState = {
+//     wsFeedError: "",
+//     wsOrdersError: "",
+//     feed: [],
+//     orders: [],
+//     total: 0,
+//     totalToday: 0,
+//     result: {
+//         data: null,
+//         error: null,
+//     },
+//     isWait: false,
+// }
 
 const checoutResult: ICheckoutResult = {
     success: false,

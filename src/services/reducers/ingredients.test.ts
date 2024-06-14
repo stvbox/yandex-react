@@ -1,14 +1,14 @@
 import { IMenuItem, IngridientsTypes } from "../../utils/data.type";
-import { ingredientsReducer, loadIngridients } from "./ingredients";
+import { ingredientsReducer, initialState, loadIngridients } from "./ingredients";
 import { IngredientsState } from "./ingredients.types";
 
 
-const initialState: IngredientsState = {
-    isLoading: false,
-    items: [],
-    categories: { bun: [], main: [], sauce: [] },
-    error: null,
-};
+// export const initialState: IngredientsState = {
+//     isLoading: false,
+//     items: [],
+//     categories: { bun: [], main: [], sauce: [] },
+//     error: null,
+// };
 
 const STUB_ITEM_BUN: IMenuItem = {
     _id: "1",
