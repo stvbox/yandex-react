@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/yandex-react/static/css/main.ebd55812.css",
-    "main.js": "/yandex-react/static/js/main.b27ca107.js",
+    "main.js": "/yandex-react/static/js/main.6a56f2bb.js",
     "static/js/453.8915ba24.chunk.js": "/yandex-react/static/js/453.8915ba24.chunk.js",
     "static/media/checkout.png": "/yandex-react/static/media/checkout.2f55c4f2007086e16094.png",
     "static/media/JetBrainsMono-Bold.woff": "/yandex-react/static/media/JetBrainsMono-Bold.3914674f1cb2335acf26.woff",
@@ -13,11 +13,11 @@
     "static/media/logo.svg": "/yandex-react/static/media/logo.6ce24c58023cc2f8fd88fe9d219db6c6.svg",
     "index.html": "/yandex-react/index.html",
     "main.ebd55812.css.map": "/yandex-react/static/css/main.ebd55812.css.map",
-    "main.b27ca107.js.map": "/yandex-react/static/js/main.b27ca107.js.map",
+    "main.6a56f2bb.js.map": "/yandex-react/static/js/main.6a56f2bb.js.map",
     "453.8915ba24.chunk.js.map": "/yandex-react/static/js/453.8915ba24.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.ebd55812.css",
-    "static/js/main.b27ca107.js"
+    "static/js/main.6a56f2bb.js"
   ]
 }
