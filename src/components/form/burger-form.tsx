@@ -34,6 +34,7 @@ export const BurgersForm: FC<ICompArgs> = ({ children, inputs, title, buttonTitl
             {inputs.map((input, index) => {
                 return (<div className="pb-6" key={input.name + index} >
                     <Input
+                        data-cy={`form-field-${input.name}`}
                         type={input.type}
                         placeholder={input.placeholder}
                         onChange={e => {
@@ -53,7 +54,13 @@ export const BurgersForm: FC<ICompArgs> = ({ children, inputs, title, buttonTitl
             })}
             {buttonTitle && (<>
                 <div className="pt-6" >
-                    <Button htmlType="button" type="primary" size="medium" onClick={buttonHandler} >
+                    <Button
+                        data-cy={`form-button-submit`}
+                        htmlType="button"
+                        type="primary"
+                        size="medium"
+                        onClick={buttonHandler}
+                    >
                         {buttonTitle}
                     </Button>
                 </div>

@@ -12,7 +12,7 @@ export enum ConstructorActions {
     REMOVE_CONSTRUCTOR_ITEM = 'REMOVE_CONSTRUCTOR_ITEM',          // +
 }
 
-const initialState: IConstructorState = {
+export const initialState: IConstructorState = {
     burgerSet: [],
     bun: null,
 };

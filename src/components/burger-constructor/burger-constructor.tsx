@@ -58,7 +58,11 @@ export function BurgerConstructor() {
     <CheckoutPanel />
   </>) : (
     <div className={`${style.wrapper} pt-25`}>
-      <div ref={drop} className={`${isOver && style.light}`} >
+      <div
+        data-cy='drop-zone'
+        ref={drop}
+        className={`${isOver && style.light}`}
+      >
         <p className={`text text_type_main-large ${style['drop-box']}`}>
           Пожалуйста, перенесите сюда булку и ингредиенты для создания заказа
         </p>

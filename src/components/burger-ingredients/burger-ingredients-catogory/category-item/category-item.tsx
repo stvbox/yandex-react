@@ -32,9 +32,10 @@ export const BurgerIngredientsCategoryItem: FC<ICompParams> = ({ item, count, in
     }, []);
 
     return (<li
+        data-cy={`ingredients-list-item-${item.type}`}
         ref={drag}
         onClick={() => clickIngridientHandler(item)}
-        className={`m-3 ml-2 mb-8 ${style.item}`}
+        className={`m-3 ml-2 mb-8 ${style.item} ingredient-${item.type}`}
         key={item._id + '_' + index}
     >
         <div className={style.image}>
@@ -43,7 +44,10 @@ export const BurgerIngredientsCategoryItem: FC<ICompParams> = ({ item, count, in
         <p className={`text text_type_digits-default m-1`}>
             {item.price} &nbsp; <CurrencyIcon type="primary" />
         </p>
-        <p className={`text text_type_main-default ${style.name}`}>
+        <p
+            data-cy={`ingredients-list-item-name`}
+            className={`text text_type_main-default ${style.name}`}
+        >
             {item.name}
         </p>
         {count && (<Counter count={count} size="default" extraClass="m-1" />)}

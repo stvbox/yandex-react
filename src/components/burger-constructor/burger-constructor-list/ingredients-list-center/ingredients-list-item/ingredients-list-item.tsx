@@ -73,7 +73,12 @@ export const IngredientsListItem: FC<ICompProps> = ({ item, index }) => {
     drag(drop(ref));
 
     return (
-        <li ref={ref} style={{ border }} className={`${style.item} pr-3 pb-4`}>
+        <li
+            data-cy={`constructor-item-${item.type}`}
+            ref={ref}
+            style={{ border }}
+            className={`${style.item} pr-3 pb-4`}
+        >
             <DragIcon type="primary" />
             <ConstructorElement
                 text={item.name}
